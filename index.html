@@ -49,6 +49,8 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObse
   --line:#e0e5ec;
   --white:#fff;
   --r-btn:.25rem;
+  /* Встроенные CSS-easing слишком вялые. Сильные кривые дают анимации намерение. */
+  --ease-out:cubic-bezier(.23,1,.32,1);
   --wrap:75rem;
   --sh-md:0 4px 6px -1px rgba(10,46,92,.07), 0 12px 24px -8px rgba(10,46,92,.12);
 }
@@ -95,21 +97,22 @@ ul,ol{list-style:none;padding:0}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border-radius:var(--r-btn);
   padding:.875rem 1.625rem;font-size:.9375rem;font-weight:700;line-height:1;white-space:nowrap;
   border:1px solid transparent;cursor:pointer;
-  transition:background-color .2s ease,border-color .2s ease,color .2s ease,transform .15s ease}
-.btn:active{transform:translateY(1px)}
+  transition:background-color .2s ease,border-color .2s ease,color .2s ease,transform .16s var(--ease-out)}
+/* Нажатие масштабом: кнопка должна ощущаться отзывчивой на палец */
+.btn:active{transform:scale(.97)}
 .btn-primary{background:var(--brand);color:#fff}
-.btn-primary:hover{background:var(--brand-hover)}
+@media (hover:hover) and (pointer:fine){.btn-primary:hover{background:var(--brand-hover)}}
 .btn-gold{background:var(--gold);color:#3d2a00}
-.btn-gold:hover{background:#d99605}
+@media (hover:hover) and (pointer:fine){.btn-gold:hover{background:#d99605}}
 .btn-outline{border-color:var(--line);color:var(--ink);background:var(--white)}
-.btn-outline:hover{border-color:var(--brand);color:var(--brand)}
+@media (hover:hover) and (pointer:fine){.btn-outline:hover{border-color:var(--brand);color:var(--brand)}}
 .btn-ghost-light{border-color:rgba(255,255,255,.36);color:#fff}
-.btn-ghost-light:hover{background:rgba(255,255,255,.12);border-color:#fff}
+@media (hover:hover) and (pointer:fine){.btn-ghost-light:hover{background:rgba(255,255,255,.12);border-color:#fff}}
 .btn-sm{padding:.6875rem 1.125rem;font-size:.875rem}
 .tlink{display:inline-flex;align-items:center;gap:.4375rem;font-size:.9375rem;font-weight:700;
   color:var(--brand);transition:gap .2s ease}
 .tlink .ic{width:1.0625rem;height:1.0625rem}
-.tlink:hover{gap:.75rem}
+@media (hover:hover) and (pointer:fine){.tlink:hover{gap:.75rem}}
 .tlink.on-dark{color:var(--gold)}
 
 /* ---------- шапка ---------- */
@@ -127,7 +130,7 @@ ul,ol{list-style:none;padding:0}
 .nav a{position:relative;white-space:nowrap;font-size:.9375rem;font-weight:600;color:var(--ink-soft);
   padding-block:.375rem;transition:color .2s ease}
 .nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold);
-  transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+  transform:scaleX(0);transform-origin:left;transition:transform .28s var(--ease-out)}
 .nav a:hover{color:var(--navy)}
 .nav a:hover::after{transform:scaleX(1)}
 .hdr-act{display:flex;align-items:center;gap:.875rem;margin-left:auto}
@@ -142,7 +145,7 @@ ul,ol{list-style:none;padding:0}
 @media (min-width:72rem){.burger{display:none}}
 .mnav{position:fixed;inset:5.0625rem 0 auto;z-index:55;background:var(--white);
   border-bottom:1px solid var(--line);box-shadow:var(--sh-md);
-  transform:translateY(-110%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
+  transform:translateY(-110%);transition:transform .32s var(--ease-out)}
 .mnav.open{transform:translateY(0)}
 .mnav ul{padding:.75rem 0 1.25rem}
 .mnav a{display:block;padding:.875rem 0;font-size:1.0625rem;font-weight:700;color:var(--navy);
@@ -151,15 +154,15 @@ ul,ol{list-style:none;padding:0}
 
 /* ---------- hero ---------- */
 .hero{position:relative;isolation:isolate;background:var(--navy);color:#fff;overflow:hidden}
-/* Слот под реальное фото: бриф требует деловые снимки без глянца.
-   Пока их нет — строгая штриховка в духе официального бланка. */
-.hero-media{position:absolute;inset:0;z-index:-2;background:
-  repeating-linear-gradient(112deg,rgba(255,255,255,.045) 0 1px,transparent 1px 14px),
-  radial-gradient(75rem 40rem at 78% -10%,rgba(0,77,147,.85),transparent 62%),
-  linear-gradient(160deg,#0a2e5c 0%,#07203f 100%)}
-.hero-media img{width:100%;height:100%;object-fit:cover;opacity:.28}
-.hero-rule{position:absolute;left:0;right:0;bottom:0;height:3px;z-index:-1;
-  background:linear-gradient(90deg,var(--gold) 0%,var(--gold) 22%,rgba(243,170,6,0) 22%)}
+/* Фото временное, со стока — заменяется один в один, см. assets/PHOTO-CREDITS.md */
+.hero-media{position:absolute;inset:0;z-index:-3;background:var(--navy);overflow:hidden}
+.hero-media img{width:100%;height:100%;object-fit:cover;opacity:.34}
+/* Вуаль отдельным слоем: штриховка официального бланка поверх снимка */
+.hero-veil{position:absolute;inset:0;z-index:-2;background:
+  repeating-linear-gradient(112deg,rgba(255,255,255,.05) 0 1px,transparent 1px 14px),
+  linear-gradient(102deg,rgba(7,32,63,.94) 0%,rgba(10,46,92,.82) 46%,rgba(10,46,92,.58) 100%)}
+.hero-rule{position:absolute;left:0;bottom:0;height:3px;width:22%;z-index:-1;background:var(--gold);
+  transform-origin:left}
 .hero-in{position:relative;display:grid;gap:2.5rem;padding-block:4rem 4.5rem}
 @media (min-width:64rem){.hero-in{grid-template-columns:1.25fr .85fr;gap:4rem;padding-block:5.5rem 6rem;align-items:center}}
 .hero h1{font-size:clamp(1.9rem,4.2vw,3.1rem);font-weight:800;line-height:1.12;letter-spacing:-.025em}
@@ -188,12 +191,15 @@ ul,ol{list-style:none;padding:0}
 .dircard{position:relative;background:var(--white);border:1px solid var(--line);padding:2rem 1.75rem;
   overflow:hidden;transition:border-color .25s ease,box-shadow .25s ease,transform .25s ease}
 .dircard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);
-  transform:scaleY(0);transform-origin:top;transition:transform .3s cubic-bezier(.4,0,.2,1)}
-.dircard:hover{border-color:#c9d3e0;box-shadow:var(--sh-md);transform:translateY(-2px)}
-.dircard:hover::before{transform:scaleY(1)}
+  transform:scaleY(0);transform-origin:top;transition:transform .3s var(--ease-out)}
+
 .dircard .fi{width:3rem;height:3rem;display:grid;place-items:center;background:var(--surface);color:var(--brand);
   transition:background-color .25s ease,color .25s ease}
-.dircard:hover .fi{background:var(--navy);color:var(--gold)}
+@media (hover:hover) and (pointer:fine){
+  .dircard:hover{border-color:#c9d3e0;box-shadow:var(--sh-md);transform:translateY(-2px)}
+  .dircard:hover::before{transform:scaleY(1)}
+  .dircard:hover .fi{background:var(--navy);color:var(--gold)}
+}
 .dircard .n{display:block;font-size:.75rem;font-weight:800;letter-spacing:.18em;color:var(--ink-mute);margin-top:1.375rem}
 .dircard h3{font-size:1.1875rem;font-weight:800;line-height:1.35;margin-top:.5rem;letter-spacing:-.01em}
 .dircard p{font-size:.9375rem;line-height:1.65;color:var(--ink-soft);margin-top:.625rem}
@@ -214,12 +220,21 @@ ul,ol{list-style:none;padding:0}
 .sincecard b{position:relative;display:block;font-size:3rem;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--gold)}
 .sincecard span{position:relative;display:block;font-size:.9375rem;color:rgba(255,255,255,.76);margin-top:.625rem;max-width:16rem}
 
+/* ---------- фотоблоки ---------- */
+.shot{margin:0 0 1.25rem;overflow:hidden;background:var(--surface)}
+.shot img{width:100%;height:auto;display:block}
+.shot.wide{margin:0;max-width:26rem;width:100%}
+.rc .shot{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+.rc-head{display:grid;gap:2rem;align-items:center}
+@media (min-width:64rem){.rc-head{grid-template-columns:1.1fr .9fr;gap:3.5rem}}
+.rc-head .shot{margin:0}
+
 /* ---------- ресурсный центр ---------- */
 .rc{background:var(--navy);color:#fff;position:relative;overflow:hidden}
 .rc::before{content:"";position:absolute;inset:0;pointer-events:none;
   background:repeating-linear-gradient(112deg,rgba(255,255,255,.04) 0 1px,transparent 1px 16px)}
 .rc .wrap{position:relative}
-.rcgrid{display:grid;gap:1px;margin-top:2.75rem;background:rgba(255,255,255,.16)}
+.rcgrid{display:grid;gap:1px;margin-top:3rem;background:rgba(255,255,255,.16)}
 @media (min-width:40rem){.rcgrid{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:64rem){.rcgrid{grid-template-columns:repeat(5,1fr)}}
 .rcgrid li{background:var(--navy);padding:1.75rem 1.25rem}
@@ -249,8 +264,9 @@ ul,ol{list-style:none;padding:0}
 .acc summary{display:flex;align-items:center;justify-content:space-between;gap:1.25rem;
   padding:1.25rem 0;font-size:1rem;font-weight:700;line-height:1.45;cursor:pointer;list-style:none}
 .acc summary::-webkit-details-marker{display:none}
-.acc summary .ic{color:var(--brand);transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.acc summary .ic{color:var(--brand);transition:transform .28s var(--ease-out)}
 .acc details[open] summary .ic{transform:rotate(180deg)}
+.acc summary{transition:color .2s ease}
 .acc details[open] summary{color:var(--brand)}
 .acc .body{padding:0 0 1.375rem;font-size:.9375rem;line-height:1.7;color:var(--ink-soft);max-width:46rem}
 .acc .body a{color:var(--brand);font-weight:600;text-decoration:underline}
@@ -336,8 +352,12 @@ ul,ol{list-style:none;padding:0}
   gap:.75rem 1.5rem;align-items:center;justify-content:space-between;font-size:.8125rem;color:rgba(255,255,255,.5)}
 
 /* ---------- reveal ---------- */
+/* Стартовые состояния для входного таймлайна. Класс rv ставится только при разрешённых
+   анимациях, поэтому без JS и при reduce-motion всё остаётся видимым. */
+html.rv [data-hero],html.rv [data-strip]{opacity:0}
+html.rv .hero-rule{transform:scaleX(0)}
 html.rv [data-rv]{opacity:0;transform:translateY(20px);
-  transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
 html.rv [data-rv].in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){html.rv [data-rv]{opacity:1;transform:none;transition:none}}
 </style>
@@ -409,24 +429,26 @@ html.rv [data-rv].in{opacity:1;transform:none}
 
   <!-- ================= HERO ================= -->
   <section class="hero">
-    <!-- Слот под реальное фото. Бриф: «реальные деловые фотографии, без рекламной глянцевой
-         стилистики». Когда заказчик пришлёт снимки — раскомментировать:
-         <div class="hero-media"><img src="assets/hero.jpg" alt="" /></div> -->
-    <div class="hero-media"></div>
-    <div class="hero-rule"></div>
+    <!-- Фото временное, со стока. Бриф требует реальные деловые снимки Совета —
+         заменить файл, разметку трогать не нужно. Пропорции в assets/PHOTO-CREDITS.md -->
+    <div class="hero-media">
+      <img src="assets/photo-hero.jpg" alt="" width="1920" height="1080" fetchpriority="high" />
+    </div>
+    <div class="hero-veil"></div>
+    <div class="hero-rule" id="hero-rule"></div>
 
     <div class="wrap hero-in">
       <div>
-        <span class="eyebrow on-dark">Общественное объединение · Шымкент</span>
-        <h1>Практическая платформа для запуска, развития и масштабирования <span class="gold">женского предпринимательства</span></h1>
-        <p class="hero-lead">Наставничество, финансирование, кооперация, закупки, цифровизация и новые рынки. Работаем от диагностики задачи до измеримого результата.</p>
-        <div class="hero-cta">
+        <span class="eyebrow on-dark" data-hero>Общественное объединение · Шымкент</span>
+        <h1 data-hero>Практическая платформа для запуска, развития и масштабирования <span class="gold">женского предпринимательства</span></h1>
+        <p class="hero-lead" data-hero>Наставничество, финансирование, кооперация, закупки, цифровизация и новые рынки. Работаем от диагностики задачи до измеримого результата.</p>
+        <div class="hero-cta" data-hero>
           <a class="btn btn-gold" href="#contacts">Обратиться в СДЖ</a>
           <a class="btn btn-ghost-light" href="#directions">Выбрать направление</a>
         </div>
       </div>
 
-      <aside class="hero-card" data-rv>
+      <aside class="hero-card" data-hero>
         <h2>Направления работы</h2>
         <ol>
           <li>Запуск и развитие бизнеса</li>
@@ -440,10 +462,10 @@ html.rv [data-rv].in{opacity:1;transform:none}
     <div class="hero-strip">
       <div class="wrap">
         <ul>
-          <li><b>2019</b><span>Год основания Совета</span></li>
-          <li><b>04</b><span>Ключевых направления</span></li>
-          <li><b>IS QOLDAY</b><span>Женский ресурсный центр</span></li>
-          <li><b>24/7</b><span>Приём обращений онлайн</span></li>
+          <li data-strip><b>2019</b><span>Год основания Совета</span></li>
+          <li data-strip><b data-count="4" data-pad="2">04</b><span>Ключевых направления</span></li>
+          <li data-strip><b>IS QOLDAY</b><span>Женский ресурсный центр</span></li>
+          <li data-strip><b>24/7</b><span>Приём обращений онлайн</span></li>
         </ul>
       </div>
     </div>
@@ -503,6 +525,9 @@ html.rv [data-rv].in{opacity:1;transform:none}
       </div>
 
       <div data-rv>
+        <figure class="shot">
+          <img src="assets/photo-about.jpg" alt="Консультация предпринимательницы за рабочим столом" width="960" height="720" loading="lazy" />
+        </figure>
         <div class="chair">
           <span class="lbl">Председатель Совета</span>
           <span class="nm">Архабаева Алма Нураловна</span>
@@ -519,10 +544,15 @@ html.rv [data-rv].in{opacity:1;transform:none}
   <!-- ================= РЕСУРСНЫЙ ЦЕНТР ================= -->
   <section class="sec rc on-dark" id="resource">
     <div class="wrap">
-      <div class="sec-head" data-rv>
-        <span class="eyebrow on-dark">С ноября 2020 года</span>
-        <h2 class="h2">Женский ресурсный центр «IS QOLDAY»</h2>
-        <p class="lead" style="margin-top:1rem">Пять видов профессиональных консультаций для предпринимательниц — в одном месте и по одной заявке.</p>
+      <div class="rc-head">
+        <div data-rv>
+          <span class="eyebrow on-dark">С ноября 2020 года</span>
+          <h2 class="h2">Женский ресурсный центр «IS QOLDAY»</h2>
+          <p class="lead" style="margin-top:1rem">Пять видов профессиональных консультаций для предпринимательниц — в одном месте и по одной заявке.</p>
+        </div>
+        <figure class="shot" data-rv>
+          <img src="assets/photo-resource.jpg" alt="Разбор рабочих материалов на консультации" width="960" height="720" loading="lazy" />
+        </figure>
       </div>
       <ul class="rcgrid">
         <li data-rv><svg class="ic ic-lg" aria-hidden="true"><use href="#i-scale-doc"/></svg><b>Юридическая</b></li>
@@ -537,9 +567,14 @@ html.rv [data-rv].in{opacity:1;transform:none}
   <!-- ================= КАК МЫ РАБОТАЕМ ================= -->
   <section class="sec sec-surface" id="how">
     <div class="wrap">
-      <div class="sec-head" data-rv>
-        <span class="eyebrow">Схема работы</span>
-        <h2 class="h2">Как мы работаем</h2>
+      <div class="sec-head row">
+        <div data-rv>
+          <span class="eyebrow">Схема работы</span>
+          <h2 class="h2">Как мы работаем</h2>
+        </div>
+        <figure class="shot wide" data-rv>
+          <img src="assets/photo-network.jpg" alt="Деловая встреча участниц Совета" width="960" height="640" loading="lazy" />
+        </figure>
       </div>
       <div class="flow-grid">
         <article class="flowcard" data-rv>
@@ -599,8 +634,8 @@ html.rv [data-rv].in{opacity:1;transform:none}
       <ul class="stats" style="margin-top:2.75rem">
         <li data-rv><span class="v">2019</span><span class="l">Год основания Совета</span></li>
         <li data-rv><span class="v">2020</span><span class="l">Запуск ресурсного центра «IS QOLDAY»</span></li>
-        <li data-rv><span class="v">04</span><span class="l">Ключевых направления работы</span></li>
-        <li data-rv><span class="v">05</span><span class="l">Видов консультаций в ресурсном центре</span></li>
+        <li data-rv><span class="v" data-count="4" data-pad="2">04</span><span class="l">Ключевых направления работы</span></li>
+        <li data-rv><span class="v" data-count="5" data-pad="2">05</span><span class="l">Видов консультаций в ресурсном центре</span></li>
       </ul>
     </div>
   </section>
@@ -823,6 +858,44 @@ html.rv [data-rv].in{opacity:1;transform:none}
   });
   form.querySelectorAll('input').forEach(i =>
     i.addEventListener('input', () => i.classList.remove('err')));
+
+  /* ---------- входной таймлайн и счётчики на anime.js v4 ----------
+     Прокрутка намеренно осталась на CSS: она идёт вне основного потока и не роняет
+     кадры, пока страница догружается. anime.js берёт на себя то, где нужен JS —
+     единожды проигрываемый вход и числовые счётчики.
+     Внимание: v4 — это `ease`, а не `easing` из v3, и именованный импорт. */
+  if (document.documentElement.classList.contains('rv')) {
+    const revealHero = () => {
+      document.querySelectorAll('[data-hero],[data-strip]').forEach(el => { el.style.opacity = '1'; });
+      const rule = document.getElementById('hero-rule');
+      if (rule) rule.style.transform = 'none';
+    };
+
+    import('https://cdn.jsdelivr.net/npm/animejs@4.5.0/+esm')
+      .then(({ createTimeline, animate, stagger }) => {
+        createTimeline({ defaults: { ease: 'out(3)', duration: 620 } })
+          .add('[data-hero]', { opacity: [0, 1], y: [18, 0], delay: stagger(70) })
+          .add('#hero-rule', { scaleX: [0, 1], duration: 820, ease: 'out(4)' }, '-=460')
+          .add('[data-strip]', { opacity: [0, 1], y: [10, 0], delay: stagger(55) }, '-=640');
+
+        // Счётчики запускаем при появлении в кадре, а не на загрузке
+        const counters = document.querySelectorAll('[data-count]');
+        if (!counters.length) return;
+        const run = el => {
+          const pad = +(el.dataset.pad || 0);
+          const state = { v: 0 };
+          animate(state, {
+            v: +el.dataset.count, duration: 900, ease: 'out(3)',
+            onUpdate: () => { el.textContent = String(Math.round(state.v)).padStart(pad, '0'); }
+          });
+        };
+        const cio = new IntersectionObserver((entries, obs) => {
+          entries.forEach(en => { if (en.isIntersecting) { run(en.target); obs.unobserve(en.target); } });
+        }, { threshold: .5 });
+        counters.forEach(el => cio.observe(el));
+      })
+      .catch(revealHero);   // CDN недоступен — показываем hero как есть
+  }
 
   /* ---------- reveal при скролле ----------
      Отступ в пикселях, а не в процентах: процент растёт вместе с высотой экрана,
