@@ -208,11 +208,20 @@ ul,ol{list-style:none;padding:0}
 
 /* ---------- о совете ---------- */
 .about-grid{display:grid;gap:2.5rem;align-items:start}
-@media (min-width:64rem){.about-grid{grid-template-columns:1.1fr .9fr;gap:4rem}}
+@media (min-width:64rem){.about-grid{grid-template-columns:1fr 1fr;gap:3.5rem}}
 .checks{margin-top:1.75rem;display:flex;flex-direction:column;gap:.875rem}
 .checks li{display:grid;grid-template-columns:1.375rem 1fr;gap:.75rem;font-size:.9375rem;line-height:1.6}
 .checks .ic{width:1.375rem;height:1.375rem;color:var(--brand);margin-top:.125rem}
-.chair{border:1px solid var(--line);border-left:3px solid var(--gold);padding:1.5rem;background:var(--white)}
+.chair{display:grid;gap:1.25rem;border:1px solid var(--line);border-left:3px solid var(--gold);
+  padding:1.5rem;background:var(--white)}
+/* Портрет сбоку, а не сверху: карточка читается как официальная справка,
+   а не как фотоблок, и колонка не перегружается по высоте. */
+@media (min-width:26rem){.chair{grid-template-columns:8.5rem 1fr;gap:1.375rem;align-items:start}}
+/* В стопке портрет во всю ширину занимал бы почти половину экрана — ограничиваем */
+.chair-shot{margin:0;overflow:hidden;background:var(--surface);max-width:11rem}
+@media (min-width:26rem){.chair-shot{max-width:none}}
+.chair-shot img{width:100%;height:auto;display:block}
+.chair-shot picture{display:block}
 .chair .lbl{display:block;font-size:.75rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute)}
 .chair .nm{display:block;font-size:1.25rem;font-weight:800;margin-top:.375rem;letter-spacing:-.01em}
 .chair p{font-size:.875rem;line-height:1.65;color:var(--ink-soft);margin-top:.75rem}
@@ -560,13 +569,18 @@ html.rv [data-rv].in{opacity:1;transform:none}
       </div>
 
       <div data-rv>
-        <figure class="shot">
-          <img src="assets/photo-about.jpg" alt="Консультация предпринимательницы за рабочим столом" width="960" height="720" loading="lazy" />
-        </figure>
         <div class="chair">
-          <span class="lbl">Председатель Совета</span>
-          <span class="nm">Архабаева Алма Нураловна</span>
-          <p>Генеральный директор ТОО «Корпорация «Asyl Arman»». Возглавляет Совет с момента основания. До этого четыре года, с 2014 года, руководила Советом деловых женщин Южно-Казахстанской области.</p>
+          <figure class="chair-shot">
+            <picture>
+              <source srcset="assets/photo-chair.webp" type="image/webp" />
+              <img src="assets/photo-chair.jpg" alt="Архабаева Алма Нураловна, председатель Совета деловых женщин города Шымкент" width="600" height="800" loading="lazy" />
+            </picture>
+          </figure>
+          <div class="chair-body">
+            <span class="lbl">Председатель Совета</span>
+            <span class="nm">Архабаева Алма Нураловна</span>
+            <p>Генеральный директор ТОО «Корпорация «Asyl Arman»». Возглавляет Совет с момента основания. До этого четыре года, с 2014 года, руководила Советом деловых женщин Южно-Казахстанской области.</p>
+          </div>
         </div>
         <div class="sincecard">
           <b>2019</b>
