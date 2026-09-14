@@ -214,14 +214,18 @@ ul,ol{list-style:none;padding:0}
 .checks .ic{width:1.375rem;height:1.375rem;color:var(--brand);margin-top:.125rem}
 .chair{display:grid;gap:1.25rem;border:1px solid var(--line);border-left:3px solid var(--gold);
   padding:1.5rem;background:var(--white)}
-/* Портрет сбоку, а не сверху: карточка читается как официальная справка,
-   а не как фотоблок, и колонка не перегружается по высоте. */
-@media (min-width:26rem){.chair{grid-template-columns:8.5rem 1fr;gap:1.375rem;align-items:start}}
-/* В стопке портрет во всю ширину занимал бы почти половину экрана — ограничиваем */
-.chair-shot{margin:0;overflow:hidden;background:var(--surface);max-width:11rem}
-@media (min-width:26rem){.chair-shot{max-width:none}}
-.chair-shot img{width:100%;height:auto;display:block}
-.chair-shot picture{display:block}
+/* Портрет сбоку, а не сверху: карточка читается как официальная справка.
+   Рядом с текстом встаёт только с 40rem — раньше на портрет в 15rem
+   не остаётся места под строку, текст сжимается в столбик по два слова. */
+@media (min-width:40rem){.chair{grid-template-columns:15rem 1fr;gap:1.5rem;align-items:start}}
+/* Потолок обязателен: без него в стопке портрет тянется по пропорциям исходника
+   и на 620px вырастает до 528×704 — почти во весь экран. Держим ровно 350px. */
+.chair-shot{margin:0;overflow:hidden;background:var(--surface);min-height:350px;max-height:350px}
+.chair-shot picture{display:block;height:100%}
+/* object-position смещён вверх: при широком кадре обрезка идёт сверху и снизу,
+   по центру лицо уходило бы за край. */
+.chair-shot img{width:100%;height:100%;min-height:350px;max-height:350px;
+  object-fit:cover;object-position:50% 22%;display:block}
 .chair .lbl{display:block;font-size:.75rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute)}
 .chair .nm{display:block;font-size:1.25rem;font-weight:800;margin-top:.375rem;letter-spacing:-.01em}
 .chair p{font-size:.875rem;line-height:1.65;color:var(--ink-soft);margin-top:.75rem}
