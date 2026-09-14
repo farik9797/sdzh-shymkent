@@ -58,7 +58,14 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObse
     </a>
     <nav class="nav" aria-label="Основная навигация">
       <a href="directions.html">Направления</a>
-      <a href="about.html">О Совете</a>
+      <div class="nav-group">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="sub-about">О Совете<svg class="ic" aria-hidden="true"><use href="#i-chevron-down"/></svg></button>
+        <div class="nav-sub" id="sub-about">
+          <a href="about.html">О Совете</a>
+          <a href="how.html">Как мы работаем</a>
+          <a href="faq.html">Вопросы</a>
+        </div>
+      </div>
       <a href="resource.html">IS QOLDAY</a>
       <a href="events.html">Мероприятия</a>
       <a href="news.html" aria-current="page">Новости</a>
@@ -78,7 +85,11 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObse
   <div class="wrap">
     <ul>
       <li><a href="directions.html">Направления</a></li>
-      <li><a href="about.html">О Совете</a></li>
+      <li class="mgroup"><span>О Совете</span><ul>
+        <li><a href="about.html">О Совете</a></li>
+        <li><a href="how.html">Как мы работаем</a></li>
+        <li><a href="faq.html">Вопросы</a></li>
+      </ul></li>
       <li><a href="resource.html">IS QOLDAY</a></li>
       <li><a href="events.html">Мероприятия</a></li>
       <li><a href="news.html" aria-current="page">Новости</a></li>

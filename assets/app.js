@@ -14,6 +14,40 @@
   mnav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleNav(false)));
   addEventListener('keydown', e => { if (e.key === 'Escape') toggleNav(false); });
 
+  /* ---------- выпадающее подменю в шапке ----------
+     Наведение обрабатывает CSS. Здесь — клавиатура и тач, где hover не работает:
+     клик открывает, Escape и клик снаружи закрывают, aria-expanded держится в синхроне. */
+  const groups = [...document.querySelectorAll('.nav-group')];
+  const closeGroups = except => groups.forEach(g => {
+    if (g === except) return;
+    g.classList.remove('open');
+    g.querySelector('.nav-toggle')?.setAttribute('aria-expanded', 'false');
+  });
+  groups.forEach(g => {
+    const btn = g.querySelector('.nav-toggle');
+    btn.addEventListener('click', () => {
+      const open = !g.classList.contains('open');
+      closeGroups(g);
+      g.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    // уход фокуса за пределы группы закрывает её
+    g.addEventListener('focusout', e => {
+      if (!g.contains(e.relatedTarget)) {
+        g.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+  if (groups.length) {
+    addEventListener('click', e => { if (!e.target.closest('.nav-group')) closeGroups(null); });
+    addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      const open = groups.find(g => g.classList.contains('open'));
+      if (open) { closeGroups(null); open.querySelector('.nav-toggle').focus(); }
+    });
+  }
+
   /* ---------- аккордеон: открыт один пункт ---------- */
   const items = [...document.querySelectorAll('.acc details')];
   items.forEach(d => d.addEventListener('toggle', () => {
