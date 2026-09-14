@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Шаблон публикации — Совет деловых женщин города Шымкент</title>
-<meta name="description" content="Служебный шаблон страницы новости для сайта Совета деловых женщин Шымкента." />
+<title>О Совете — Совет деловых женщин города Шымкент</title>
+<meta name="description" content="Совет деловых женщин города Шымкент: история с 2019 года, председатель Архабаева Алма Нураловна, аудитория, признание и реквизиты." />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="ru_KZ" />
 <meta property="og:site_name" content="Совет деловых женщин города Шымкент" />
-<meta property="og:title" content="Заголовок публикации" />
-<meta property="og:description" content="Служебный шаблон страницы новости для сайта Совета деловых женщин Шымкента." />
+<meta property="og:title" content="О Совете" />
+<meta property="og:description" content="Совет деловых женщин города Шымкент: история с 2019 года, председатель Архабаева Алма Нураловна, аудитория, признание и реквизиты." />
 <link rel="icon" type="image/png" href="assets/logo-src.png" />
 <link rel="apple-touch-icon" href="assets/logo-src.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -58,10 +58,10 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObse
     </a>
     <nav class="nav" aria-label="Основная навигация">
       <a href="directions.html">Направления</a>
-      <a href="about.html">О Совете</a>
+      <a href="about.html" aria-current="page">О Совете</a>
       <a href="resource.html">IS QOLDAY</a>
       <a href="events.html">Мероприятия</a>
-      <a href="news.html" aria-current="page">Новости</a>
+      <a href="news.html">Новости</a>
       <a href="contacts.html">Контакты</a>
     </nav>
     <div class="hdr-act">
@@ -78,10 +78,10 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObse
   <div class="wrap">
     <ul>
       <li><a href="directions.html">Направления</a></li>
-      <li><a href="about.html">О Совете</a></li>
+      <li><a href="about.html" aria-current="page">О Совете</a></li>
       <li><a href="resource.html">IS QOLDAY</a></li>
       <li><a href="events.html">Мероприятия</a></li>
-      <li><a href="news.html" aria-current="page">Новости</a></li>
+      <li><a href="news.html">Новости</a></li>
       <li><a href="contacts.html">Контакты</a></li>
     </ul>
     <button class="btn btn-primary" type="button" data-open-modal>Обратиться в СДЖ</button>
@@ -94,62 +94,163 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObse
   <section class="page-head">
     <div class="wrap">
       <nav class="crumbs" aria-label="Хлебные крошки">
-        <a href="index.html">Главная</a><span class="sep">/</span><span aria-current="page">Шаблон публикации</span>
+        <a href="index.html">Главная</a><span class="sep">/</span><span aria-current="page">О Совете</span>
       </nav>
-      <h1>Заголовок публикации</h1>
-      <p>Шаблон страницы новости. Заголовок, дата и текст заменяются при создании реальной публикации.</p>
+      <h1>О Совете</h1>
+      <p>Практическое сопровождение женского предпринимательства Шымкента с 2019 года. Не количество мероприятий, а измеримый экономический результат.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap about-grid">
+      <div data-rv>
+        <span class="eyebrow">Кто мы</span>
+        <h2 class="h2">Объединяем предпринимательниц вокруг конкретных задач бизнеса</h2>
+        <p class="lead" style="margin-top:1.25rem">Совет деловых женщин города Шымкент объединяет
+           предпринимательниц, экспертов, финансовые организации, институты развития, заказчиков
+           и партнёров. Мы не производим и не перепродаём — наша работа это практическое
+           сопровождение женского предпринимательства.</p>
+        <p class="lead" style="margin-top:1rem">Ключевой принцип — не количество проведённых
+           мероприятий, а практический экономический результат для предпринимательницы.
+           Работа ведётся круглый год, сезонности нет.</p>
+        <ul class="checks">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Запуск предприятия и выход на первые продажи</span></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Привлечение финансирования и инвестиционная подготовка</span></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Заключение контрактов и участие в закупках</span></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Выход на новый рынок и внедрение цифровых решений</span></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Решение системных вопросов предпринимательства</span></li>
+        </ul>
+      </div>
+
+      <div data-rv>
+        <div class="chair">
+          <figure class="chair-shot">
+            <picture>
+              <source srcset="assets/photo-chair.webp" type="image/webp" />
+              <img src="assets/photo-chair.jpg" alt="Архабаева Алма Нураловна, председатель Совета деловых женщин города Шымкент" width="600" height="800" loading="lazy" />
+            </picture>
+          </figure>
+          <div class="chair-body">
+            <span class="lbl">Председатель Совета</span>
+            <span class="nm">Архабаева Алма Нураловна</span>
+            <p>Генеральный директор ТОО «Корпорация «Asyl Arman»». Возглавляет Совет с момента
+               основания. До этого четыре года, с 2014 года, руководила Советом деловых женщин
+               Южно-Казахстанской области.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec-surface">
+    <div class="wrap">
+      <div class="sec-head" data-rv>
+        <span class="eyebrow">История</span>
+        <h2 class="h2">Как появился Совет</h2>
+      </div>
+      <ul class="tline">
+        <li data-rv><span class="yr">2014</span><p>Алма Архабаева возглавляет Совет деловых женщин
+           Южно-Казахстанской области и руководит им четыре года.</p></li>
+        <li data-rv><span class="yr">2019</span><p>10 февраля образован Совет деловых женщин
+           города Шымкент. Алма Архабаева возглавляет его с момента основания.</p></li>
+        <li data-rv><span class="yr">2020</span><p>В ноябре запущен женский ресурсный центр
+           «IS QOLDAY» — пять видов консультаций по одной заявке.</p></li>
+      </ul>
     </div>
   </section>
 
   <section class="sec">
     <div class="wrap">
-      <div class="warn" data-rv style="max-width:46rem">
-        <b>Это шаблон страницы, а не публикация</b>
-        <p>Файл нужен, чтобы делать новости копированием: сохраните его под новым именем,
-           замените заголовок, дату, текст и изображение. Весь текст ниже — рыба,
-           показывающая доступное оформление.</p>
+      <div class="sec-head" data-rv>
+        <span class="eyebrow">Аудитория</span>
+        <h2 class="h2">Для кого работает Совет</h2>
+        <p class="lead" style="margin-top:1rem">Опыт в бизнесе значения не имеет — приходят
+           и с идеей, и с действующим производством.</p>
+      </div>
+      <div class="dirs dirs-3">
+        <article class="dircard" data-rv>
+          <span class="fi"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-rocket"/></svg></span>
+          <h3 style="margin-top:1.375rem">С бизнес-идеей</h3>
+          <p>Женщины, у которых есть замысел, но дело ещё не запущено. И молодые женщины, планирующие открыть своё.</p>
+        </article>
+        <article class="dircard" data-rv>
+          <span class="fi"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-trend-up"/></svg></span>
+          <h3 style="margin-top:1.375rem">Начинающие предпринимательницы</h3>
+          <p>Дело уже запущено, но нужен маршрут развития и первые устойчивые продажи.</p>
+        </article>
+        <article class="dircard" data-rv>
+          <span class="fi"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-briefcase"/></svg></span>
+          <h3 style="margin-top:1.375rem">Собственницы и руководительницы МСП</h3>
+          <p>Действующий бизнес, которому нужны контракты, закупки и деловые связи.</p>
+        </article>
+        <article class="dircard" data-rv>
+          <span class="fi"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-building"/></svg></span>
+          <h3 style="margin-top:1.375rem">Производственницы</h3>
+          <p>Те, кто производит и готов масштабироваться за пределы своего региона.</p>
+        </article>
+        <article class="dircard" data-rv>
+          <span class="fi"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-globe"/></svg></span>
+          <h3 style="margin-top:1.375rem">Экспортёры</h3>
+          <p>Компании, работающие или готовые работать за пределами Казахстана.</p>
+        </article>
+        <article class="dircard" data-rv>
+          <span class="fi"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-users"/></svg></span>
+          <h3 style="margin-top:1.375rem">Социальные предпринимательницы</h3>
+          <p>Дело с социальной миссией, которому нужна та же практическая поддержка.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec-surface">
+    <div class="wrap">
+      <div class="sec-head" data-rv>
+        <span class="eyebrow">Признание и партнёрство</span>
+        <h2 class="h2">Совет представлен в отраслевых институтах</h2>
+      </div>
+      <!-- ВАЖНО: число участниц Совета здесь сознательно не публикуется.
+           Бриф требует размещать только верифицированные и актуальные показатели,
+           а имеющиеся данные датированы 2020–2022 годом. Ставить после сверки. -->
+      <div class="recog">
+        <article class="recogcard" data-rv>
+          <span class="fi"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-building"/></svg></span>
+          <b>Региональный совет при Палате предпринимателей</b>
+          <p>Три представительницы Совета вошли в его состав.</p>
+        </article>
+        <article class="recogcard" data-rv>
+          <span class="fi"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-users"/></svg></span>
+          <b>Партийная группа «Іскер әйелдер»</b>
+          <p>Создана первичная партийная группа деловых женщин.</p>
+        </article>
+        <article class="recogcard" data-rv>
+          <span class="fi"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-layers"/></svg></span>
+          <b>Меморандумы с фондами</b>
+          <p>Заключены соглашения с фондами «Ана үйі» и «Ерекше жол».</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head" data-rv>
+        <span class="eyebrow">Реквизиты</span>
+        <h2 class="h2">Юридические данные</h2>
+      </div>
+      <div class="reqs">
+        <div data-rv><span class="k">Полное название</span><span class="v">Общественное объединение «Совет деловых женщин города Шымкент»</span></div>
+        <div data-rv><span class="k">БИН</span><span class="v">201140000285</span></div>
+        <div data-rv><span class="k">Адрес</span><span class="v">Казахстан, г. Шымкент, Орынбаева 23а</span></div>
+        <div data-rv><span class="k">Членство</span><span class="v">Оформляется через ассоциацию <a href="resource.html">«IS QOLDAY»</a></span></div>
       </div>
 
-      <div class="doc" data-rv>
-        <p class="lead">Вводный абзац: одно-два предложения, которые объясняют суть новости
-           до того, как читатель решит читать дальше. Его же имеет смысл ставить в описание
-           страницы и в анонс на странице новостей.</p>
-
-        <p>Обычный абзац текста. Здесь раскрывается, что произошло, кто участвовал и что это
-           меняет для предпринимательниц. Ссылки оформляются так:
-           <a href="index.html#directions">направления работы Совета</a>.</p>
-
-        <h2>Подзаголовок раздела</h2>
-        <p>Если материал длинный, разбивайте его подзаголовками — так текст сканируется глазами,
-           а не читается сплошняком.</p>
-        <ul>
-          <li>перечисление, когда нужно показать список участников или этапов;</li>
-          <li>пункты короткие, по одной мысли в каждом;</li>
-          <li>если пунктов больше семи, лучше разбить на два списка.</li>
-        </ul>
-
-        <blockquote>Цитата участницы или партнёра. Выделяется золотой линией слева и
-           более крупным кеглем — работает как смысловая пауза в длинном тексте.</blockquote>
-
-        <h2>Иллюстрация</h2>
-        <p>Снимок вставляется вместе с подписью. Пропорции свободные, ширина подстраивается
-           под колонку.</p>
-        <figure>
-          <picture>
-            <source srcset="assets/photo-network.webp" type="image/webp" />
-            <img src="assets/photo-network.jpg" alt="Замените описанием того, что на снимке" width="960" height="640" loading="lazy" />
-          </picture>
-          <figcaption>Подпись к изображению: кто и что на снимке, когда сделан.</figcaption>
-        </figure>
-
-        <h3>Подзаголовок третьего уровня</h3>
-        <p>Нужен редко — когда внутри раздела есть смысловые части. Если структура сложнее,
-           это обычно признак, что материал стоит разделить на две публикации.</p>
-
-        <p style="margin-top:2.5rem">
-          <a class="tlink" href="news.html">
-            <svg class="ic" aria-hidden="true" style="transform:scaleX(-1)"><use href="#i-arrow-r"/></svg>Все новости</a>
-        </p>
+      <div class="empty" data-rv>
+        <div>
+          <b>Хотите присоединиться?</b>
+          <p>Опишите задачу — проведём первичную диагностику и направим в подходящую программу
+             или отраслевое направление.</p>
+        </div>
+        <button class="btn btn-primary" type="button" data-open-modal>Обратиться в СДЖ</button>
       </div>
     </div>
   </section>
