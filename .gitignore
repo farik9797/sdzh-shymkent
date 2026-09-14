@@ -1,0 +1,11 @@
+# secrets — never commit
+password.md
+
+# внутренние материалы клиента
+uploads/
+
+# коммерческий шаблон ThemeForest — распространять нельзя
+reference/
+
+# служебное
+.DS_Store
