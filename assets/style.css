@@ -445,3 +445,6 @@ html.rv [data-rv].in{opacity:1;transform:none}
 .ncard .kind{display:block;font-size:.8125rem;font-weight:700;color:var(--brand)}
 .ftr-bot nav a{color:rgba(255,255,255,.62);text-decoration:underline}
 @media (hover:hover) and (pointer:fine){.ftr-bot nav a:hover{color:var(--gold)}}
+
+/* пять карточек в две колонки дают ряд 2+2+1 — на широком экране ставим три */
+@media (min-width:64rem){.dirs.dirs-3{grid-template-columns:repeat(3,1fr)}}
