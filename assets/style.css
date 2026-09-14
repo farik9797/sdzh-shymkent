@@ -1,0 +1,447 @@
+/* ============================================================
+   Совет деловых женщин города Шымкент
+   Палитра снята пипеткой с логотипа: синий #004D93, золото #F3AA06.
+   Бриф: строгий официальный минимализм, тёмно-синий / графитовый / белый,
+   умеренный золотистый акцент. Запрещены: розовый, цветы, женские силуэты,
+   яркие градиенты, клипарт.
+   Контраст проверен: #004D93 на белом 8.46:1, золото на #0A2E5C 6.78:1.
+   Золото на белом даёт 1.99:1 — только как графика, никогда как текст.
+   ============================================================ */
+:root{
+  --navy:#0a2e5c;
+  --navy-deep:#07203f;
+  --brand:#004d93;
+  --brand-hover:#003b73;
+  --gold:#f3aa06;
+  --ink:#1f2630;
+  --ink-soft:#5a6675;
+  --ink-mute:#7b8694;
+  --surface:#f5f7fa;
+  --line:#e0e5ec;
+  --white:#fff;
+  --r-btn:.25rem;
+  /* Встроенные CSS-easing слишком вялые. Сильные кривые дают анимации намерение. */
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --wrap:75rem;
+  --sh-md:0 4px 6px -1px rgba(10,46,92,.07), 0 12px 24px -8px rgba(10,46,92,.12);
+}
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:5.5rem;overflow-x:hidden}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--white);color:var(--ink);
+  font-family:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:1rem;line-height:1.65;font-weight:400;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input,textarea{font:inherit;color:inherit}
+ul,ol{list-style:none;padding:0}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:2px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+.wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:1.25rem}
+@media (min-width:48rem){.wrap{padding-inline:2rem}}
+.sec{padding-block:4rem}
+@media (min-width:48rem){.sec{padding-block:5.5rem}}
+.sec-surface{background:var(--surface)}
+
+/* ---------- типографика ---------- */
+.eyebrow{display:flex;align-items:center;gap:.625rem;font-size:.8125rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--brand);margin-bottom:.875rem}
+.eyebrow::before{content:"";width:1.75rem;height:2px;background:var(--gold);flex:none}
+.eyebrow.on-dark{color:var(--gold)}
+.eyebrow.on-dark::before{background:var(--gold)}
+.h2{font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:800;line-height:1.15;letter-spacing:-.02em}
+.lead{font-size:1.0625rem;line-height:1.75;color:var(--ink-soft)}
+.on-dark .lead{color:rgba(255,255,255,.76)}
+.sec-head{max-width:44rem;margin-bottom:3rem}
+/* Имя собственное не должно рваться по строкам */
+.nb{white-space:nowrap}
+.sec-head.row{max-width:none;display:flex;flex-wrap:wrap;gap:1.25rem 2rem;align-items:flex-end;justify-content:space-between}
+
+.ic{width:1.25rem;height:1.25rem;flex:none;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.ic-lg{width:1.5rem;height:1.5rem}
+
+/* ---------- кнопки ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border-radius:var(--r-btn);
+  padding:.875rem 1.625rem;font-size:.9375rem;font-weight:700;line-height:1;white-space:nowrap;
+  border:1px solid transparent;cursor:pointer;
+  transition:background-color .2s ease,border-color .2s ease,color .2s ease,transform .16s var(--ease-out)}
+/* Нажатие масштабом: кнопка должна ощущаться отзывчивой на палец */
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--brand);color:#fff}
+@media (hover:hover) and (pointer:fine){.btn-primary:hover{background:var(--brand-hover)}}
+.btn-gold{background:var(--gold);color:#3d2a00}
+@media (hover:hover) and (pointer:fine){.btn-gold:hover{background:#d99605}}
+.btn-outline{border-color:var(--line);color:var(--ink);background:var(--white)}
+@media (hover:hover) and (pointer:fine){.btn-outline:hover{border-color:var(--brand);color:var(--brand)}}
+.btn-ghost-light{border-color:rgba(255,255,255,.36);color:#fff}
+@media (hover:hover) and (pointer:fine){.btn-ghost-light:hover{background:rgba(255,255,255,.12);border-color:#fff}}
+.btn-sm{padding:.6875rem 1.125rem;font-size:.875rem}
+.tlink{display:inline-flex;align-items:center;gap:.4375rem;font-size:.9375rem;font-weight:700;
+  color:var(--brand);transition:gap .2s ease}
+.tlink .ic{width:1.0625rem;height:1.0625rem}
+@media (hover:hover) and (pointer:fine){.tlink:hover{gap:.75rem}}
+.tlink.on-dark{color:var(--gold)}
+
+/* ---------- шапка ---------- */
+.hdr{position:sticky;top:0;z-index:60;background:var(--white);border-bottom:1px solid var(--line);
+  box-shadow:0 1px 0 rgba(10,46,92,.03)}
+.hdr::before{content:"";display:block;height:3px;background:var(--gold)}
+.hdr-in{display:flex;align-items:center;gap:1.5rem;height:4.75rem}
+.brand{display:flex;align-items:center;gap:.75rem;flex:none}
+.brand img{width:2.75rem;height:2.75rem;object-fit:contain}
+.brand b{display:block;font-size:.9375rem;font-weight:800;line-height:1.15;letter-spacing:-.01em;color:var(--navy)}
+.brand span{display:block;font-size:.6875rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-mute);line-height:1.3;margin-top:.125rem}
+.nav{display:none;flex:1;gap:1.5rem;justify-content:center}
+@media (min-width:72rem){.nav{display:flex}}
+.nav a{position:relative;white-space:nowrap;font-size:.9375rem;font-weight:600;color:var(--ink-soft);
+  padding-block:.375rem;transition:color .2s ease}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold);
+  transform:scaleX(0);transform-origin:left;transition:transform .28s var(--ease-out)}
+.nav a:hover{color:var(--navy)}
+.nav a:hover::after{transform:scaleX(1)}
+.hdr-act{display:flex;align-items:center;gap:.875rem;margin-left:auto}
+.hdr-phone{display:none;font-size:.9375rem;font-weight:700;color:var(--navy);white-space:nowrap}
+.hdr-phone:hover{color:var(--brand)}
+/* До 80rem телефон в шапку не влезает рядом с меню и кнопкой — уезжает за край.
+   Там он показывается в мобильном меню. */
+@media (min-width:80rem){.hdr-phone{display:block}}
+.hdr-act .btn{display:none}
+@media (min-width:36rem){.hdr-act .btn{display:inline-flex}}
+.burger{width:2.5rem;height:2.5rem;display:grid;place-items:center;border-radius:var(--r-btn);
+  color:var(--navy);border:1px solid var(--line);transition:border-color .2s ease}
+.burger:hover{border-color:var(--navy)}
+@media (min-width:72rem){.burger{display:none}}
+.mnav{position:fixed;inset:5.0625rem 0 auto;z-index:55;background:var(--white);
+  border-bottom:1px solid var(--line);box-shadow:var(--sh-md);
+  transform:translateY(-110%);transition:transform .32s var(--ease-out)}
+.mnav.open{transform:translateY(0)}
+.mnav ul{padding:.75rem 0 1.25rem}
+.mnav a{display:block;padding:.875rem 0;font-size:1.0625rem;font-weight:700;color:var(--navy);
+  border-bottom:1px solid var(--line)}
+.mnav .btn{margin-top:1.25rem;width:100%}
+.mnav-phone{display:block;margin-top:1rem;padding-bottom:1.25rem;text-align:center;
+  font-size:1.0625rem;font-weight:800;color:var(--navy)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;isolation:isolate;background:var(--navy);color:#fff;overflow:hidden}
+/* Фото временное, со стока — заменяется один в один, см. assets/PHOTO-CREDITS.md */
+.hero-media{position:absolute;inset:0;z-index:-3;background:var(--navy);overflow:hidden}
+.hero-media picture{display:block;width:100%;height:100%}
+.hero-media img{width:100%;height:100%;object-fit:cover;opacity:.82}
+/* Вуаль отдельным слоем: штриховка официального бланка поверх снимка */
+.hero-veil{position:absolute;inset:0;z-index:-2;background:
+  repeating-linear-gradient(112deg,rgba(255,255,255,.05) 0 1px,transparent 1px 14px),
+  linear-gradient(100deg,rgba(6,26,52,.90) 0%,rgba(8,36,72,.74) 38%,rgba(10,46,92,.40) 72%,rgba(10,46,92,.28) 100%)}
+.hero-rule{position:absolute;left:0;bottom:0;height:3px;width:22%;z-index:-1;background:var(--gold);
+  transform-origin:left}
+.hero-in{position:relative;display:grid;gap:2.5rem;padding-block:4rem 4.5rem}
+@media (min-width:64rem){.hero-in{padding-block:6.5rem 7rem}}
+/* Карточка направлений убрана — текст не должен растягиваться на всю ширину:
+   строка длиннее ~60 знаков читается тяжело. */
+.hero-in > div{max-width:44rem}
+.hero h1{font-size:clamp(1.9rem,4.2vw,3.1rem);font-weight:800;line-height:1.12;letter-spacing:-.025em}
+.hero h1 .gold{color:var(--gold)}
+.hero-lead{margin-top:1.375rem;max-width:38rem;font-size:1.0625rem;line-height:1.75;color:rgba(255,255,255,.8)}
+.hero-cta{margin-top:2.25rem;display:flex;flex-wrap:wrap;gap:.875rem}
+.hero-strip{position:relative;border-top:1px solid rgba(255,255,255,.14);background:rgba(4,16,34,.35)}
+.hero-strip ul{display:grid;grid-template-columns:repeat(2,1fr)}
+@media (min-width:48rem){.hero-strip ul{grid-template-columns:repeat(4,1fr)}}
+.hero-strip li{padding:1.25rem 0}
+@media (min-width:48rem){.hero-strip li+li{padding-left:1.75rem;border-left:1px solid rgba(255,255,255,.14)}}
+.hero-strip b{display:block;font-size:1.375rem;font-weight:800;letter-spacing:-.01em}
+.hero-strip span{display:block;font-size:.8125rem;color:rgba(255,255,255,.62);margin-top:.1875rem}
+
+/* ---------- направления ---------- */
+.dirs{display:grid;gap:1.25rem}
+@media (min-width:40rem){.dirs{grid-template-columns:repeat(2,1fr)}}
+.dircard{position:relative;background:var(--white);border:1px solid var(--line);padding:2rem 1.75rem;
+  overflow:hidden;transition:border-color .25s ease,box-shadow .25s ease,transform .25s ease}
+.dircard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);
+  transform:scaleY(0);transform-origin:top;transition:transform .3s var(--ease-out)}
+
+.dircard .fi{width:3rem;height:3rem;display:grid;place-items:center;background:var(--surface);color:var(--brand);
+  transition:background-color .25s ease,color .25s ease}
+@media (hover:hover) and (pointer:fine){
+  .dircard:hover{border-color:#c9d3e0;box-shadow:var(--sh-md);transform:translateY(-2px)}
+  .dircard:hover::before{transform:scaleY(1)}
+  .dircard:hover .fi{background:var(--navy);color:var(--gold)}
+}
+.dircard .n{display:block;font-size:.75rem;font-weight:800;letter-spacing:.18em;color:var(--ink-mute);margin-top:1.375rem}
+.dircard h3{font-size:1.1875rem;font-weight:800;line-height:1.35;margin-top:.5rem;letter-spacing:-.01em}
+.dircard p{font-size:.9375rem;line-height:1.65;color:var(--ink-soft);margin-top:.625rem}
+
+/* ---------- о совете ---------- */
+.about-grid{display:grid;gap:2.5rem;align-items:start}
+@media (min-width:64rem){.about-grid{grid-template-columns:1fr 1fr;gap:3.5rem}}
+.checks{margin-top:1.75rem;display:flex;flex-direction:column;gap:.875rem}
+.checks li{display:grid;grid-template-columns:1.375rem 1fr;gap:.75rem;font-size:.9375rem;line-height:1.6}
+.checks .ic{width:1.375rem;height:1.375rem;color:var(--brand);margin-top:.125rem}
+.chair{display:grid;gap:1.25rem;border:1px solid var(--line);border-left:3px solid var(--gold);
+  padding:1.5rem;background:var(--white)}
+/* Портрет сбоку, а не сверху: карточка читается как официальная справка.
+   Рядом с текстом встаёт только с 40rem — раньше на портрет в 15rem
+   не остаётся места под строку, текст сжимается в столбик по два слова. */
+@media (min-width:40rem){.chair{grid-template-columns:15rem 1fr;gap:1.5rem;align-items:start}}
+/* Потолок обязателен: без него в стопке портрет тянется по пропорциям исходника
+   и на 620px вырастает до 528×704 — почти во весь экран. Держим ровно 350px. */
+.chair-shot{margin:0;overflow:hidden;background:var(--surface);min-height:350px;max-height:350px}
+.chair-shot picture{display:block;height:100%}
+/* object-position смещён вверх: при широком кадре обрезка идёт сверху и снизу,
+   по центру лицо уходило бы за край. */
+.chair-shot img{width:100%;height:100%;min-height:350px;max-height:350px;
+  object-fit:cover;object-position:50% 22%;display:block}
+.chair .lbl{display:block;font-size:.75rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute)}
+.chair .nm{display:block;font-size:1.25rem;font-weight:800;margin-top:.375rem;letter-spacing:-.01em}
+.chair p{font-size:.875rem;line-height:1.65;color:var(--ink-soft);margin-top:.75rem}
+.sincecard{margin-top:1.25rem;background:var(--navy);color:#fff;padding:1.75rem;position:relative;overflow:hidden}
+.sincecard::after{content:"";position:absolute;right:-2.5rem;bottom:-2.5rem;width:9rem;height:9rem;
+  border:1px solid rgba(243,170,6,.28);border-radius:50%}
+.sincecard b{position:relative;display:block;font-size:3rem;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--gold)}
+.sincecard span{position:relative;display:block;font-size:.9375rem;color:rgba(255,255,255,.76);margin-top:.625rem;max-width:16rem}
+
+/* ---------- фотоблоки ---------- */
+.shot{margin:0 0 1.25rem;overflow:hidden;background:var(--surface)}
+.shot picture{display:block}
+.shot img{width:100%;height:auto;display:block}
+.shot.wide{margin:0;max-width:26rem;width:100%}
+.rc .shot{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+.rc-head{display:grid;gap:2rem;align-items:center}
+@media (min-width:64rem){.rc-head{grid-template-columns:1.1fr .9fr;gap:3.5rem}}
+.rc-head .shot{margin:0}
+
+/* ---------- ресурсный центр ---------- */
+.rc{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.rc::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(112deg,rgba(255,255,255,.04) 0 1px,transparent 1px 16px)}
+.rc .wrap{position:relative}
+.rcgrid{display:grid;gap:1px;margin-top:3rem;background:rgba(255,255,255,.16)}
+@media (min-width:40rem){.rcgrid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:64rem){.rcgrid{grid-template-columns:repeat(5,1fr)}}
+.rcgrid li{background:var(--navy);padding:1.75rem 1.25rem}
+.rcgrid .ic{color:var(--gold)}
+.rcgrid b{display:block;font-size:1rem;font-weight:700;line-height:1.4;margin-top:1rem}
+
+/* ---------- как мы работаем ---------- */
+.flow-grid{display:grid;gap:1.25rem;margin-top:2.75rem}
+@media (min-width:64rem){.flow-grid{grid-template-columns:repeat(2,1fr);gap:2rem}}
+.flowcard{background:var(--white);border:1px solid var(--line);padding:2rem}
+.flowcard h3{display:flex;align-items:center;gap:.75rem;font-size:1.125rem;font-weight:800;letter-spacing:-.01em}
+.flowcard h3 .fi{width:2.5rem;height:2.5rem;display:grid;place-items:center;background:var(--surface);color:var(--brand);flex:none}
+.flow{margin-top:1.5rem;counter-reset:f}
+.flow li{position:relative;padding:0 0 1.375rem 2.5rem;counter-increment:f;font-size:.9375rem;line-height:1.55}
+.flow li i{position:absolute;left:0;top:-.0625rem;width:1.625rem;height:1.625rem;
+  display:grid;place-items:center;background:var(--navy);color:#fff;font-size:.75rem;font-weight:800;
+  border-radius:50%;font-style:normal;will-change:transform}
+.flow li i::before{content:counter(f)}
+.flow li::after{content:"";position:absolute;left:.78125rem;top:1.625rem;bottom:.1875rem;width:1px;background:var(--line)}
+.flow li:last-child{padding-bottom:0}
+.flow li:last-child::after{display:none}
+.flow li:last-child i{background:var(--gold);color:#3d2a00}
+
+/* ---------- FAQ ---------- */
+.faq-grid{display:grid;gap:2.5rem;align-items:start}
+@media (min-width:64rem){.faq-grid{grid-template-columns:.85fr 1.15fr;gap:3.5rem}}
+.acc{border-top:1px solid var(--line)}
+.acc details{border-bottom:1px solid var(--line)}
+.acc summary{display:flex;align-items:center;justify-content:space-between;gap:1.25rem;
+  padding:1.25rem 0;font-size:1rem;font-weight:700;line-height:1.45;cursor:pointer;list-style:none}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary .ic{color:var(--brand);transition:transform .28s var(--ease-out)}
+.acc details[open] summary .ic{transform:rotate(180deg)}
+.acc summary{transition:color .2s ease}
+.acc details[open] summary{color:var(--brand)}
+.acc .body{padding:0 0 1.375rem;font-size:.9375rem;line-height:1.7;color:var(--ink-soft);max-width:46rem}
+.acc .body a{color:var(--brand);font-weight:600;text-decoration:underline}
+
+/* ---------- показатели ---------- */
+.stats{display:grid;gap:1px;background:var(--line)}
+@media (min-width:40rem){.stats{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:64rem){.stats{grid-template-columns:repeat(4,1fr)}}
+.stats li{background:var(--white);padding:2rem 1.5rem}
+.stats .v{display:block;font-size:2.75rem;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--navy)}
+.stats .l{display:block;font-size:.9375rem;line-height:1.55;color:var(--ink-soft);margin-top:.75rem}
+
+/* ---------- признание ---------- */
+.recog{display:grid;gap:1.25rem;margin-top:2.75rem}
+@media (min-width:48rem){.recog{grid-template-columns:repeat(3,1fr)}}
+.recogcard{background:var(--white);border:1px solid var(--line);padding:1.75rem}
+.recogcard .fi{width:2.75rem;height:2.75rem;display:grid;place-items:center;background:var(--surface);color:var(--brand)}
+.recogcard b{display:block;font-size:1rem;font-weight:800;line-height:1.4;margin-top:1.125rem}
+.recogcard p{font-size:.875rem;line-height:1.65;color:var(--ink-soft);margin-top:.5rem}
+
+/* ---------- заглушки ---------- */
+.soon{display:inline-flex;align-self:flex-start;width:fit-content;align-items:center;gap:.375rem;
+  font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);
+  background:var(--surface);border:1px solid var(--line);padding:.3125rem .625rem}
+.newsgrid{display:grid;gap:1.25rem}
+@media (min-width:48rem){.newsgrid{grid-template-columns:repeat(3,1fr)}}
+.ncard{display:flex;flex-direction:column;background:var(--white);border:1px solid var(--line);padding:1.75rem}
+.ncard h3{font-size:1.0625rem;font-weight:800;line-height:1.4;margin-top:1rem;letter-spacing:-.01em}
+.ncard p{font-size:.9375rem;line-height:1.65;color:var(--ink-soft);margin-top:.625rem}
+.tpl-note{margin-top:1.75rem;font-size:.9375rem;color:var(--ink-mute)}
+
+/* ---------- модальное окно ---------- */
+.modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal[hidden]{display:none}
+.modal-bd{position:absolute;inset:0;background:rgba(4,16,34,.64);
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:m-fade .2s ease}
+.modal-panel{position:relative;width:100%;max-width:34rem;max-height:90svh;overflow-y:auto;
+  background:var(--navy-deep);border:1px solid rgba(255,255,255,.18);color:#fff;padding:1.75rem;
+  box-shadow:0 32px 64px -24px rgba(0,0,0,.6);animation:m-in .24s var(--ease-out)}
+@media (min-width:40rem){.modal-panel{padding:2.25rem}}
+@keyframes m-fade{from{opacity:0}to{opacity:1}}
+/* Появление от .96, а не от нуля: из ничего в реальном мире ничего не возникает.
+   Окно не привязано к триггеру, поэтому масштабируется от центра. */
+@keyframes m-in{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.modal-bd,.modal-panel{animation:none}}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1.25rem}
+.modal-head h2{font-size:1.5rem;font-weight:800;letter-spacing:-.015em;line-height:1.2}
+.modal-head .eyebrow{color:var(--gold);margin-bottom:.5rem}
+.modal-head .eyebrow::before{background:var(--gold)}
+.modal-x{width:2.5rem;height:2.5rem;flex:none;display:grid;place-items:center;color:rgba(255,255,255,.7);
+  border:1px solid rgba(255,255,255,.2);transition:background-color .2s ease,color .2s ease}
+@media (hover:hover) and (pointer:fine){.modal-x:hover{background:rgba(255,255,255,.12);color:#fff}}
+.modal-hint{font-size:.9375rem;color:rgba(255,255,255,.7);margin-top:.75rem}
+.modal-panel.form{background:var(--navy-deep)}
+.modal-panel .fgrid{margin-top:1.5rem}
+html.locked{overflow:hidden}
+
+/* ---------- панель обращения в контактах ---------- */
+/* ---------- контакты ---------- */
+.contact{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden}
+.contact::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(50rem 26rem at 88% -20%,rgba(0,77,147,.7),transparent 60%)}
+.contact .wrap{position:relative}
+.cgrid{display:grid;gap:3rem}
+@media (min-width:64rem){.cgrid{grid-template-columns:1fr 1.05fr;gap:4rem}}
+.clist{margin-top:2rem;display:flex;flex-direction:column;gap:1.5rem}
+.clist li{display:grid;grid-template-columns:2.5rem 1fr;gap:1rem}
+.clist .fi{width:2.5rem;height:2.5rem;display:grid;place-items:center;border:1px solid rgba(255,255,255,.2);color:var(--gold)}
+.clist .k{display:block;font-size:.75rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.clist .v{display:block;font-size:1rem;line-height:1.6;margin-top:.25rem}
+.clist a:hover{color:var(--gold)}
+.clist em{font-style:normal;display:block;font-size:.875rem;color:rgba(255,255,255,.6);margin-top:.1875rem}
+.form{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);padding:2rem}
+.form h3{font-size:1.375rem;font-weight:800;letter-spacing:-.01em}
+.form p.hint{font-size:.9375rem;color:rgba(255,255,255,.7);margin-top:.5rem}
+.fgrid{margin-top:1.75rem;display:grid;gap:1rem}
+@media (min-width:36rem){.fgrid{grid-template-columns:repeat(2,1fr)}}
+.fgrid .full{grid-column:1/-1}
+.form label{display:block;font-size:.8125rem;font-weight:700;color:rgba(255,255,255,.72);margin-bottom:.4375rem}
+.form input,.form textarea{width:100%;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);
+  color:#fff;padding:.75rem .875rem;font-size:.9375rem;outline:none;resize:vertical;border-radius:var(--r-btn);
+  transition:border-color .2s ease,box-shadow .2s ease}
+.form input::placeholder,.form textarea::placeholder{color:rgba(255,255,255,.42)}
+.form input:focus,.form textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(243,170,6,.18)}
+.form .err{border-color:#ff8f8f}
+.form .note{font-size:.75rem;line-height:1.6;color:rgba(255,255,255,.55)}
+.fsuccess{text-align:center;padding:2rem 0}
+.fsuccess .fi{width:3.25rem;height:3.25rem;margin:0 auto;display:grid;place-items:center;
+  border:1px solid rgba(243,170,6,.5);color:var(--gold)}
+.fsuccess h3{font-size:1.1875rem;font-weight:800;margin-top:1.125rem}
+.fsuccess p{font-size:.9375rem;color:rgba(255,255,255,.72);margin-top:.5rem}
+
+/* ---------- подвал ---------- */
+.ftr{background:var(--navy-deep);color:#fff;border-top:1px solid rgba(255,255,255,.1)}
+.ftr-grid{display:grid;gap:2.5rem;padding-block:3.5rem}
+@media (min-width:48rem){.ftr-grid{grid-template-columns:1.5fr 1fr 1fr}}
+.ftr .brand b{color:#fff}
+.ftr .brand span{color:rgba(255,255,255,.55)}
+.ftr-about{font-size:.875rem;line-height:1.7;color:rgba(255,255,255,.6);margin-top:1.25rem;max-width:24rem}
+.ftr h3{font-size:.75rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.ftr-col ul{margin-top:1rem;display:flex;flex-direction:column;gap:.6875rem}
+.ftr-col a{font-size:.875rem;color:rgba(255,255,255,.75);transition:color .2s ease}
+.ftr-col a:hover{color:var(--gold)}
+.soc{margin-top:1.25rem;display:flex;gap:.625rem}
+.soc a{width:2.375rem;height:2.375rem;display:grid;place-items:center;border:1px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.8);transition:background-color .2s ease,color .2s ease,border-color .2s ease}
+.soc a:hover{background:var(--gold);border-color:var(--gold);color:#3d2a00}
+.soc svg{width:1.0625rem;height:1.0625rem;fill:currentColor}
+.ftr-bot{border-top:1px solid rgba(255,255,255,.12);padding-block:1.5rem;display:flex;flex-wrap:wrap;
+  gap:.75rem 1.5rem;align-items:center;justify-content:space-between;font-size:.8125rem;color:rgba(255,255,255,.5)}
+
+/* ---------- reveal ---------- */
+/* Стартовые состояния для входного таймлайна. Класс rv ставится только при разрешённых
+   анимациях, поэтому без JS и при reduce-motion всё остаётся видимым. */
+html.rv [data-hero],html.rv [data-strip],html.rv .flow li{opacity:0}
+html.rv .hero-rule{transform:scaleX(0)}
+html.rv [data-rv]{opacity:0;transform:translateY(20px);
+  transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
+html.rv [data-rv].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html.rv [data-rv]{opacity:1;transform:none;transition:none}}
+
+/* ============================================================
+   Внутренние страницы
+   ============================================================ */
+.nav a[aria-current="page"]{color:var(--navy)}
+.nav a[aria-current="page"]::after{transform:scaleX(1)}
+.mnav a[aria-current="page"]{color:var(--brand)}
+
+.page-head{background:var(--navy);color:#fff;position:relative;overflow:hidden;padding-block:2.75rem 3.25rem}
+.page-head::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(112deg,rgba(255,255,255,.05) 0 1px,transparent 1px 14px)}
+.page-head::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:22%;background:var(--gold)}
+.page-head .wrap{position:relative}
+.page-head h1{font-size:clamp(1.75rem,4vw,2.75rem);font-weight:800;line-height:1.12;letter-spacing:-.02em;margin-top:.75rem}
+.page-head p{margin-top:1.125rem;max-width:46rem;font-size:1.0625rem;line-height:1.7;color:rgba(255,255,255,.78)}
+
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;font-size:.8125rem;color:rgba(255,255,255,.6)}
+.crumbs a{color:rgba(255,255,255,.78)}
+@media (hover:hover) and (pointer:fine){.crumbs a:hover{color:var(--gold)}}
+.crumbs span[aria-current]{color:rgba(255,255,255,.5)}
+.crumbs .sep{color:rgba(255,255,255,.35)}
+
+/* пустое состояние раздела */
+.empty{border:1px solid var(--line);background:var(--surface);padding:2rem;margin-top:2rem;
+  display:flex;flex-wrap:wrap;gap:1.25rem 2rem;align-items:center;justify-content:space-between}
+.empty b{display:block;font-size:1.0625rem;font-weight:800}
+.empty p{font-size:.9375rem;line-height:1.65;color:var(--ink-soft);margin-top:.5rem;max-width:44rem}
+.empty a.tlink{white-space:nowrap}
+
+/* текст статьи и юридического документа */
+.doc{max-width:46rem}
+.doc h2{font-size:1.375rem;font-weight:800;letter-spacing:-.01em;margin-top:2.5rem}
+.doc h3{font-size:1.0625rem;font-weight:800;margin-top:1.75rem}
+.doc p{font-size:1rem;line-height:1.75;color:var(--ink-soft);margin-top:.875rem}
+.doc ul{margin-top:.875rem;display:flex;flex-direction:column;gap:.5rem}
+.doc ul li{position:relative;padding-left:1.25rem;font-size:1rem;line-height:1.7;color:var(--ink-soft)}
+.doc ul li::before{content:"";position:absolute;left:0;top:.6875rem;width:.375rem;height:.375rem;
+  border-radius:50%;background:var(--gold)}
+.doc a{color:var(--brand);font-weight:600;text-decoration:underline}
+.doc .lead{font-size:1.0625rem;color:var(--ink);margin-top:0}
+.doc blockquote{margin-top:1.5rem;border-left:3px solid var(--gold);padding:.25rem 0 .25rem 1.25rem;
+  font-size:1.0625rem;line-height:1.7;color:var(--ink)}
+.doc figure{margin:2rem 0 0}
+.doc figure img{width:100%;height:auto;display:block}
+.doc figcaption{font-size:.8125rem;color:var(--ink-mute);margin-top:.625rem}
+
+/* предупреждение о черновике */
+.warn{border:1px solid rgba(243,170,6,.5);background:rgba(243,170,6,.08);padding:1.25rem 1.5rem;
+  border-left:3px solid var(--gold)}
+.warn b{display:block;font-size:.9375rem;font-weight:800}
+.warn p{font-size:.9375rem;line-height:1.65;color:var(--ink-soft);margin-top:.5rem}
+
+/* карточка контактов на отдельной странице */
+.cpage{display:grid;gap:2.5rem;align-items:start}
+@media (min-width:64rem){.cpage{grid-template-columns:1fr 1fr;gap:3.5rem}}
+.cpage .clist .fi{border-color:var(--line);color:var(--brand)}
+.cpage .clist .k{color:var(--ink-mute)}
+.cpage .clist .v{color:var(--ink)}
+.cpage .clist em{color:var(--ink-soft)}
+.cpage .clist a{color:var(--brand)}
+.cpage .form{background:var(--navy-deep);border-color:rgba(255,255,255,.16);color:#fff}
+
+/* метаданные в карточке-заглушке (дата и место уточняются) */
+.card-meta{margin-top:1rem;display:flex;flex-direction:column;gap:.4375rem}
+.card-meta span{display:flex;align-items:center;gap:.5rem;font-size:.875rem;color:var(--ink-soft)}
+.card-meta .ic{width:1rem;height:1rem;color:var(--ink-mute)}
+.ncard .kind{display:block;font-size:.8125rem;font-weight:700;color:var(--brand)}
+.ftr-bot nav a{color:rgba(255,255,255,.62);text-decoration:underline}
+@media (hover:hover) and (pointer:fine){.ftr-bot nav a:hover{color:var(--gold)}}
