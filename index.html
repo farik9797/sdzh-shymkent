@@ -136,7 +136,9 @@ ul,ol{list-style:none;padding:0}
 .hdr-act{display:flex;align-items:center;gap:.875rem;margin-left:auto}
 .hdr-phone{display:none;font-size:.9375rem;font-weight:700;color:var(--navy);white-space:nowrap}
 .hdr-phone:hover{color:var(--brand)}
-@media (min-width:48rem){.hdr-phone{display:block}}
+/* До 80rem телефон в шапку не влезает рядом с меню и кнопкой — уезжает за край.
+   Там он показывается в мобильном меню. */
+@media (min-width:80rem){.hdr-phone{display:block}}
 .hdr-act .btn{display:none}
 @media (min-width:36rem){.hdr-act .btn{display:inline-flex}}
 .burger{width:2.5rem;height:2.5rem;display:grid;place-items:center;border-radius:var(--r-btn);
@@ -151,16 +153,18 @@ ul,ol{list-style:none;padding:0}
 .mnav a{display:block;padding:.875rem 0;font-size:1.0625rem;font-weight:700;color:var(--navy);
   border-bottom:1px solid var(--line)}
 .mnav .btn{margin-top:1.25rem;width:100%}
+.mnav-phone{display:block;margin-top:1rem;padding-bottom:1.25rem;text-align:center;
+  font-size:1.0625rem;font-weight:800;color:var(--navy)}
 
 /* ---------- hero ---------- */
 .hero{position:relative;isolation:isolate;background:var(--navy);color:#fff;overflow:hidden}
 /* Фото временное, со стока — заменяется один в один, см. assets/PHOTO-CREDITS.md */
 .hero-media{position:absolute;inset:0;z-index:-3;background:var(--navy);overflow:hidden}
-.hero-media img{width:100%;height:100%;object-fit:cover;opacity:.34}
+.hero-media img{width:100%;height:100%;object-fit:cover;opacity:.82}
 /* Вуаль отдельным слоем: штриховка официального бланка поверх снимка */
 .hero-veil{position:absolute;inset:0;z-index:-2;background:
   repeating-linear-gradient(112deg,rgba(255,255,255,.05) 0 1px,transparent 1px 14px),
-  linear-gradient(102deg,rgba(7,32,63,.94) 0%,rgba(10,46,92,.82) 46%,rgba(10,46,92,.58) 100%)}
+  linear-gradient(100deg,rgba(6,26,52,.90) 0%,rgba(8,36,72,.74) 38%,rgba(10,46,92,.40) 72%,rgba(10,46,92,.28) 100%)}
 .hero-rule{position:absolute;left:0;bottom:0;height:3px;width:22%;z-index:-1;background:var(--gold);
   transform-origin:left}
 .hero-in{position:relative;display:grid;gap:2.5rem;padding-block:4rem 4.5rem}
@@ -169,7 +173,9 @@ ul,ol{list-style:none;padding:0}
 .hero h1 .gold{color:var(--gold)}
 .hero-lead{margin-top:1.375rem;max-width:38rem;font-size:1.0625rem;line-height:1.75;color:rgba(255,255,255,.8)}
 .hero-cta{margin-top:2.25rem;display:flex;flex-wrap:wrap;gap:.875rem}
-.hero-card{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);
+/* Подложка своя, а не «стекло по фону»: иначе контраст текста зависит от того,
+   что оказалось под карточкой на фотографии, и проваливается ниже 4.5:1 */
+.hero-card{border:1px solid rgba(255,255,255,.20);background:rgba(6,26,52,.76);
   backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:1.75rem}
 .hero-card h2{font-size:.8125rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
 .hero-card ol{margin-top:1.25rem;display:flex;flex-direction:column;gap:1rem;counter-reset:d}
@@ -249,12 +255,14 @@ ul,ol{list-style:none;padding:0}
 .flowcard h3 .fi{width:2.5rem;height:2.5rem;display:grid;place-items:center;background:var(--surface);color:var(--brand);flex:none}
 .flow{margin-top:1.5rem;counter-reset:f}
 .flow li{position:relative;padding:0 0 1.375rem 2.5rem;counter-increment:f;font-size:.9375rem;line-height:1.55}
-.flow li::before{content:counter(f);position:absolute;left:0;top:-.0625rem;width:1.625rem;height:1.625rem;
-  display:grid;place-items:center;background:var(--navy);color:#fff;font-size:.75rem;font-weight:800;border-radius:50%}
+.flow li i{position:absolute;left:0;top:-.0625rem;width:1.625rem;height:1.625rem;
+  display:grid;place-items:center;background:var(--navy);color:#fff;font-size:.75rem;font-weight:800;
+  border-radius:50%;font-style:normal;will-change:transform}
+.flow li i::before{content:counter(f)}
 .flow li::after{content:"";position:absolute;left:.78125rem;top:1.625rem;bottom:.1875rem;width:1px;background:var(--line)}
 .flow li:last-child{padding-bottom:0}
 .flow li:last-child::after{display:none}
-.flow li:last-child::before{background:var(--gold);color:#3d2a00}
+.flow li:last-child i{background:var(--gold);color:#3d2a00}
 
 /* ---------- FAQ ---------- */
 .faq-grid{display:grid;gap:2.5rem;align-items:start}
@@ -354,7 +362,7 @@ ul,ol{list-style:none;padding:0}
 /* ---------- reveal ---------- */
 /* Стартовые состояния для входного таймлайна. Класс rv ставится только при разрешённых
    анимациях, поэтому без JS и при reduce-motion всё остаётся видимым. */
-html.rv [data-hero],html.rv [data-strip]{opacity:0}
+html.rv [data-hero],html.rv [data-strip],html.rv .flow li{opacity:0}
 html.rv .hero-rule{transform:scaleX(0)}
 html.rv [data-rv]{opacity:0;transform:translateY(20px);
   transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
@@ -422,6 +430,7 @@ html.rv [data-rv].in{opacity:1;transform:none}
       <li><a href="#contacts">Контакты</a></li>
     </ul>
     <a class="btn btn-primary" href="#contacts">Обратиться в СДЖ</a>
+    <a class="mnav-phone" href="tel:+77000900019">+7 700 090 00 19</a>
   </div>
 </div>
 
@@ -580,23 +589,23 @@ html.rv [data-rv].in{opacity:1;transform:none}
         <article class="flowcard" data-rv>
           <h3><span class="fi"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-rocket"/></svg></span>Для предпринимательницы</h3>
           <ol class="flow">
-            <li>Выбор задачи</li>
-            <li>Заявка</li>
-            <li>Первичная диагностика</li>
-            <li>Маршрутизация в программу или отраслевое направление</li>
-            <li>Наставничество, обучение или партнёрское сопровождение</li>
-            <li>Фиксация результата</li>
+            <li><i aria-hidden="true"></i>Выбор задачи</li>
+            <li><i aria-hidden="true"></i>Заявка</li>
+            <li><i aria-hidden="true"></i>Первичная диагностика</li>
+            <li><i aria-hidden="true"></i>Маршрутизация в программу или отраслевое направление</li>
+            <li><i aria-hidden="true"></i>Наставничество, обучение или партнёрское сопровождение</li>
+            <li><i aria-hidden="true"></i>Фиксация результата</li>
           </ol>
         </article>
         <article class="flowcard" data-rv>
           <h3><span class="fi"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-handshake"/></svg></span>Для партнёра и заказчика</h3>
           <ol class="flow">
-            <li>Обращение</li>
-            <li>Определение потребности</li>
-            <li>Подбор формата сотрудничества или B2B</li>
-            <li>Назначение ответственного</li>
-            <li>Совместная работа</li>
-            <li>Оценка результата</li>
+            <li><i aria-hidden="true"></i>Обращение</li>
+            <li><i aria-hidden="true"></i>Определение потребности</li>
+            <li><i aria-hidden="true"></i>Подбор формата сотрудничества или B2B</li>
+            <li><i aria-hidden="true"></i>Назначение ответственного</li>
+            <li><i aria-hidden="true"></i>Совместная работа</li>
+            <li><i aria-hidden="true"></i>Оценка результата</li>
           </ol>
         </article>
       </div>
@@ -865,8 +874,8 @@ html.rv [data-rv].in{opacity:1;transform:none}
      единожды проигрываемый вход и числовые счётчики.
      Внимание: v4 — это `ease`, а не `easing` из v3, и именованный импорт. */
   if (document.documentElement.classList.contains('rv')) {
-    const revealHero = () => {
-      document.querySelectorAll('[data-hero],[data-strip]').forEach(el => { el.style.opacity = '1'; });
+    const revealAll = () => {
+      document.querySelectorAll('[data-hero],[data-strip],.flow li').forEach(el => { el.style.opacity = '1'; });
       const rule = document.getElementById('hero-rule');
       if (rule) rule.style.transform = 'none';
     };
@@ -893,8 +902,42 @@ html.rv [data-rv].in{opacity:1;transform:none}
           entries.forEach(en => { if (en.isIntersecting) { run(en.target); obs.unobserve(en.target); } });
         }, { threshold: .5 });
         counters.forEach(el => cio.observe(el));
+
+        // Шаги в «Как мы работаем» набегают по одному: так читается последовательность,
+        // а не просто «появился блок». Шаг стаггера 70 мс — длиннее делает страницу вялой.
+        const flows = document.querySelectorAll('.flow');
+        const fio = new IntersectionObserver((entries, obs) => {
+          entries.forEach(en => {
+            if (!en.isIntersecting) return;
+            obs.unobserve(en.target);
+            const items = en.target.querySelectorAll('li');
+            animate(items, {
+              opacity: [0, 1], x: [-10, 0],
+              duration: 520, ease: 'out(3)', delay: stagger(70)
+            });
+            // Кружок с номером подхватывает тот же такт, но масштабом.
+            // Стартуем с .8, а не с нуля: из ничего в реальном мире ничего не возникает.
+            animate(en.target.querySelectorAll('li i'), {
+              scale: [.8, 1], duration: 420, ease: 'out(4)', delay: stagger(70)
+            });
+          });
+        }, { threshold: .25 });
+        flows.forEach(el => fio.observe(el));
       })
-      .catch(revealHero);   // CDN недоступен — показываем hero как есть
+      .catch(revealAll);   // CDN недоступен — показываем всё как есть
+
+    // Подстраховка на случай, когда библиотека загрузилась, но анимация так и не пошла
+    // (медленная сеть, сбой планировщика). Через 4 секунды контент показываем безусловно.
+    setTimeout(() => {
+      document.querySelectorAll('[data-hero],[data-strip]').forEach(el => {
+        if (+getComputedStyle(el).opacity === 0) el.style.opacity = '1';
+      });
+      document.querySelectorAll('.flow li').forEach(el => {
+        const r = el.getBoundingClientRect();
+        const seen = r.top < innerHeight && r.bottom > 0;
+        if (seen && +getComputedStyle(el).opacity === 0) el.style.opacity = '1';
+      });
+    }, 4000);
   }
 
   /* ---------- reveal при скролле ----------
