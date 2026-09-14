@@ -303,6 +303,39 @@ ul,ol{list-style:none;padding:0}
 .ncard p{font-size:.9375rem;line-height:1.65;color:var(--ink-soft);margin-top:.625rem}
 .tpl-note{margin-top:1.75rem;font-size:.9375rem;color:var(--ink-mute)}
 
+/* ---------- модальное окно ---------- */
+.modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal[hidden]{display:none}
+.modal-bd{position:absolute;inset:0;background:rgba(4,16,34,.64);
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:m-fade .2s ease}
+.modal-panel{position:relative;width:100%;max-width:34rem;max-height:90svh;overflow-y:auto;
+  background:var(--navy-deep);border:1px solid rgba(255,255,255,.18);color:#fff;padding:1.75rem;
+  box-shadow:0 32px 64px -24px rgba(0,0,0,.6);animation:m-in .24s var(--ease-out)}
+@media (min-width:40rem){.modal-panel{padding:2.25rem}}
+@keyframes m-fade{from{opacity:0}to{opacity:1}}
+/* Появление от .96, а не от нуля: из ничего в реальном мире ничего не возникает.
+   Окно не привязано к триггеру, поэтому масштабируется от центра. */
+@keyframes m-in{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.modal-bd,.modal-panel{animation:none}}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1.25rem}
+.modal-head h2{font-size:1.5rem;font-weight:800;letter-spacing:-.015em;line-height:1.2}
+.modal-head .eyebrow{color:var(--gold);margin-bottom:.5rem}
+.modal-head .eyebrow::before{background:var(--gold)}
+.modal-x{width:2.5rem;height:2.5rem;flex:none;display:grid;place-items:center;color:rgba(255,255,255,.7);
+  border:1px solid rgba(255,255,255,.2);transition:background-color .2s ease,color .2s ease}
+@media (hover:hover) and (pointer:fine){.modal-x:hover{background:rgba(255,255,255,.12);color:#fff}}
+.modal-hint{font-size:.9375rem;color:rgba(255,255,255,.7);margin-top:.75rem}
+.modal-panel.form{background:var(--navy-deep)}
+.modal-panel .fgrid{margin-top:1.5rem}
+html.locked{overflow:hidden}
+
+/* ---------- панель обращения в контактах ---------- */
+.ctacard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);padding:2rem}
+.ctacard h3{font-size:1.375rem;font-weight:800;letter-spacing:-.01em}
+.ctacard p{font-size:.9375rem;line-height:1.7;color:rgba(255,255,255,.72);margin-top:.875rem}
+.ctacard .btn{margin-top:1.75rem}
+.ctacard-note{display:block;margin-top:1rem;font-size:.8125rem;color:rgba(255,255,255,.5)}
+
 /* ---------- контакты ---------- */
 .contact{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden}
 .contact::before{content:"";position:absolute;inset:0;pointer-events:none;
@@ -408,7 +441,7 @@ html.rv [data-rv].in{opacity:1;transform:none}
     </nav>
     <div class="hdr-act">
       <a class="hdr-phone" href="tel:+77000900019">+7 700 090 00 19</a>
-      <a class="btn btn-primary btn-sm" href="#contacts">Обратиться в СДЖ</a>
+      <button class="btn btn-primary btn-sm" type="button" data-open-modal>Обратиться в СДЖ</button>
       <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav" id="burger">
         <svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg>
       </button>
@@ -426,7 +459,7 @@ html.rv [data-rv].in{opacity:1;transform:none}
       <li><a href="#faq">Вопросы</a></li>
       <li><a href="#contacts">Контакты</a></li>
     </ul>
-    <a class="btn btn-primary" href="#contacts">Обратиться в СДЖ</a>
+    <button class="btn btn-primary" type="button" data-open-modal>Обратиться в СДЖ</button>
     <a class="mnav-phone" href="tel:+77000900019">+7 700 090 00 19</a>
   </div>
 </div>
@@ -454,7 +487,7 @@ html.rv [data-rv].in{opacity:1;transform:none}
         <h1 data-hero>Практическая платформа для запуска, развития и масштабирования <span class="gold">женского предпринимательства</span></h1>
         <p class="hero-lead" data-hero>Наставничество, финансирование, кооперация, закупки, цифровизация и новые рынки. Работаем от диагностики задачи до измеримого результата.</p>
         <div class="hero-cta" data-hero>
-          <a class="btn btn-gold" href="#contacts">Обратиться в СДЖ</a>
+          <button class="btn btn-gold" type="button" data-open-modal>Обратиться в СДЖ</button>
           <a class="btn btn-ghost-light" href="#directions">Выбрать направление</a>
         </div>
       </div>
@@ -655,7 +688,7 @@ html.rv [data-rv].in{opacity:1;transform:none}
         <span class="eyebrow">Вопросы и ответы</span>
         <h2 class="h2">Коротко о главном</h2>
         <p class="lead" style="margin-top:1rem">Не нашли ответ — напишите нам, ответим в рабочее время.</p>
-        <a class="btn btn-outline" href="#contacts" style="margin-top:1.75rem">Задать вопрос</a>
+        <button class="btn btn-outline" type="button" data-open-modal style="margin-top:1.75rem">Задать вопрос</button>
       </div>
 
       <div class="acc" data-rv>
@@ -674,7 +707,7 @@ html.rv [data-rv].in{opacity:1;transform:none}
           <div class="body">Условия членства, размер взносов и участие в отдельных программах публикуются после официального утверждения. Актуальные условия на текущий момент можно уточнить по телефону.</div>
         </details>
         <details>
-          <summary>Чем занимается ресурсный центр <span class="nb">«IS QOLDAY»</span>?<svg class="ic" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
+          <summary><span>Чем занимается ресурсный центр <span class="nb">«IS QOLDAY»</span>?</span><svg class="ic" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
           <div class="body">Центр работает с ноября 2020 года и даёт пять видов консультаций: юридические, психологические, кадровые, бухгалтерские и маркетинговые.</div>
         </details>
         <details>
@@ -747,32 +780,13 @@ html.rv [data-rv].in{opacity:1;transform:none}
         </ul>
       </div>
 
-      <div class="form" data-rv>
+      <div class="ctacard" data-rv>
         <h3>Оставить обращение</h3>
-        <p class="hint">Ответим в рабочее время. Поля со звёздочкой обязательны.</p>
-        <form class="fgrid" id="lead-form" novalidate>
-          <div>
-            <label for="f-name">Имя и фамилия *</label>
-            <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required />
-          </div>
-          <div>
-            <label for="f-phone">Телефон *</label>
-            <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___ __ __" required />
-          </div>
-          <div class="full">
-            <label for="f-task">Задача или вопрос</label>
-            <textarea id="f-task" name="task" rows="4" placeholder="Например: хочу запустить производство и подготовиться к финансированию"></textarea>
-          </div>
-          <div class="full">
-            <button class="btn btn-gold" type="submit">Отправить обращение</button>
-          </div>
-          <p class="note full">Нажимая кнопку, вы соглашаетесь на обработку персональных данных. Данные используются только для связи по обращению.</p>
-        </form>
-        <div class="fsuccess" id="lead-success" hidden>
-          <span class="fi"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-check"/></svg></span>
-          <h3>Обращение получено</h3>
-          <p>Спасибо — свяжемся с вами в рабочее время: пн–пт 09:00–18:00, сб 09:00–14:00.</p>
-        </div>
+        <p>Опишите задачу в короткой форме — проведём первичную диагностику и вернёмся с ответом
+           в рабочее время: пн–пт 09:00–18:00, сб 09:00–14:00.</p>
+        <button class="btn btn-gold" type="button" data-open-modal>Обратиться в СДЖ</button>
+        <span class="ctacard-note">Онлайн-обращения принимаем круглосуточно</span>
+      </div>
       </div>
     </div>
   </section>
@@ -823,6 +837,46 @@ html.rv [data-rv].in{opacity:1;transform:none}
   </div>
 </footer>
 
+<!-- Обращение открывается модальным окном: кнопки в шапке, hero и контактах ведут сюда,
+     чтобы заявку можно было оставить с любого экрана без прокрутки вниз. -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-bd" data-close-modal></div>
+  <div class="modal-panel form" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-head">
+      <div>
+        <span class="eyebrow">Заявка</span>
+        <h2 id="modal-title">Обратиться в СДЖ</h2>
+      </div>
+      <button class="modal-x" type="button" aria-label="Закрыть окно" data-close-modal>
+        <svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+    <p class="modal-hint">Ответим в рабочее время. Поля со звёздочкой обязательны.</p>
+        <form class="fgrid" id="lead-form" novalidate>
+          <div>
+            <label for="f-name">Имя и фамилия *</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required />
+          </div>
+          <div>
+            <label for="f-phone">Телефон *</label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___ __ __" required />
+          </div>
+          <div class="full">
+            <label for="f-task">Задача или вопрос</label>
+            <textarea id="f-task" name="task" rows="4" placeholder="Например: хочу запустить производство и подготовиться к финансированию"></textarea>
+          </div>
+          <div class="full">
+            <button class="btn btn-gold" type="submit">Отправить обращение</button>
+          </div>
+          <p class="note full">Нажимая кнопку, вы соглашаетесь на обработку персональных данных. Данные используются только для связи по обращению.</p>
+        </form>
+        <div class="fsuccess" id="lead-success" hidden>
+          <span class="fi"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-check"/></svg></span>
+          <h3>Обращение получено</h3>
+          <p>Спасибо — свяжемся с вами в рабочее время: пн–пт 09:00–18:00, сб 09:00–14:00.</p>
+    </div>
+</div>
+
 <script>
 (() => {
   'use strict';
@@ -845,6 +899,39 @@ html.rv [data-rv].in{opacity:1;transform:none}
   items.forEach(d => d.addEventListener('toggle', () => {
     if (d.open) items.forEach(o => { if (o !== d) o.open = false; });
   }));
+
+  /* ---------- модальное окно обращения ---------- */
+  const modal = document.getElementById('modal');
+  let lastFocused = null;
+
+  const openModal = () => {
+    lastFocused = document.activeElement;
+    modal.hidden = false;
+    document.documentElement.classList.add('locked');
+    toggleNav(false);
+    // фокус на первое поле, но только после отрисовки окна
+    requestAnimationFrame(() => modal.querySelector('input')?.focus());
+  };
+  const closeModal = () => {
+    modal.hidden = true;
+    document.documentElement.classList.remove('locked');
+    lastFocused?.focus();
+  };
+
+  document.querySelectorAll('[data-open-modal]').forEach(b => b.addEventListener('click', openModal));
+  document.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', closeModal));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+
+  // Фокус не должен уходить за пределы окна, пока оно открыто
+  modal.addEventListener('keydown', e => {
+    if (e.key !== 'Tab') return;
+    const f = [...modal.querySelectorAll('button, input, textarea, a[href]')]
+      .filter(el => !el.disabled && el.offsetParent !== null);
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
 
   /* ---------- форма обращения ---------- */
   const form = document.getElementById('lead-form');
@@ -953,6 +1040,5 @@ html.rv [data-rv].in{opacity:1;transform:none}
     document.querySelectorAll('[data-rv]').forEach(el => io.observe(el));
   }
 })();
-</script>
-</body>
+</script></body>
 </html>
