@@ -224,6 +224,7 @@ ul,ol{list-style:none;padding:0}
 
 /* ---------- фотоблоки ---------- */
 .shot{margin:0 0 1.25rem;overflow:hidden;background:var(--surface)}
+.shot picture{display:block}
 .shot img{width:100%;height:auto;display:block}
 .shot.wide{margin:0;max-width:26rem;width:100%}
 .rc .shot{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
@@ -552,7 +553,10 @@ html.rv [data-rv].in{opacity:1;transform:none}
           <p class="lead" style="margin-top:1rem">Пять видов профессиональных консультаций для предпринимательниц — в одном месте и по одной заявке.</p>
         </div>
         <figure class="shot" data-rv>
-          <img src="assets/photo-resource.jpg" alt="Разбор рабочих материалов на консультации" width="960" height="720" loading="lazy" />
+          <picture>
+            <source srcset="assets/photo-resource.webp" type="image/webp" />
+            <img src="assets/photo-resource.jpg" alt="Консультация в женском ресурсном центре «IS QOLDAY»" width="960" height="720" loading="lazy" />
+          </picture>
         </figure>
       </div>
       <ul class="rcgrid">
@@ -574,7 +578,10 @@ html.rv [data-rv].in{opacity:1;transform:none}
           <h2 class="h2">Как мы работаем</h2>
         </div>
         <figure class="shot wide" data-rv>
-          <img src="assets/photo-network.jpg" alt="Деловая встреча участниц Совета" width="960" height="640" loading="lazy" />
+          <picture>
+            <source srcset="assets/photo-network.webp" type="image/webp" />
+            <img src="assets/photo-network.jpg" alt="Деловая встреча участниц Совета" width="960" height="640" loading="lazy" />
+          </picture>
         </figure>
       </div>
       <div class="flow-grid">
