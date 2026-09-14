@@ -448,3 +448,22 @@ html.rv [data-rv].in{opacity:1;transform:none}
 
 /* пять карточек в две колонки дают ряд 2+2+1 — на широком экране ставим три */
 @media (min-width:64rem){.dirs.dirs-3{grid-template-columns:repeat(3,1fr)}}
+
+/* ---------- развёрнутое направление ---------- */
+.dirblock{border-top:1px solid var(--line);padding-top:2.5rem;margin-top:2.5rem}
+.dirblock:first-child{border-top:0;padding-top:0;margin-top:0}
+.dirblock-head{display:flex;align-items:flex-start;gap:1.125rem}
+.dirblock-head .fi{width:3.25rem;height:3.25rem;flex:none;display:grid;place-items:center;
+  background:var(--navy);color:var(--gold)}
+.dirblock-head .n{display:block;font-size:.75rem;font-weight:800;letter-spacing:.18em;color:var(--ink-mute)}
+.dirblock-head h2{font-size:clamp(1.375rem,2.6vw,1.875rem);font-weight:800;line-height:1.25;
+  letter-spacing:-.015em;margin-top:.375rem}
+.dirblock > .lead{margin-top:1.25rem;max-width:46rem}
+.dirblock-grid{display:grid;gap:1.75rem;margin-top:2rem}
+@media (min-width:48rem){.dirblock-grid{grid-template-columns:repeat(3,1fr);gap:2rem}}
+.dirblock-grid h3{font-size:.75rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-mute);padding-bottom:.75rem;border-bottom:1px solid var(--line)}
+.dirblock-grid ul{margin-top:1rem;display:flex;flex-direction:column;gap:.625rem}
+.dirblock-grid li{position:relative;padding-left:1.125rem;font-size:.9375rem;line-height:1.6;color:var(--ink-soft)}
+.dirblock-grid li::before{content:"";position:absolute;left:0;top:.5625rem;width:.3125rem;height:.3125rem;
+  border-radius:50%;background:var(--gold)}
