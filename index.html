@@ -88,6 +88,8 @@ ul,ol{list-style:none;padding:0}
 .lead{font-size:1.0625rem;line-height:1.75;color:var(--ink-soft)}
 .on-dark .lead{color:rgba(255,255,255,.76)}
 .sec-head{max-width:44rem;margin-bottom:3rem}
+/* Имя собственное не должно рваться по строкам */
+.nb{white-space:nowrap}
 .sec-head.row{max-width:none;display:flex;flex-wrap:wrap;gap:1.25rem 2rem;align-items:flex-end;justify-content:space-between}
 
 .ic{width:1.25rem;height:1.25rem;flex:none;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
@@ -160,6 +162,7 @@ ul,ol{list-style:none;padding:0}
 .hero{position:relative;isolation:isolate;background:var(--navy);color:#fff;overflow:hidden}
 /* Фото временное, со стока — заменяется один в один, см. assets/PHOTO-CREDITS.md */
 .hero-media{position:absolute;inset:0;z-index:-3;background:var(--navy);overflow:hidden}
+.hero-media picture{display:block;width:100%;height:100%}
 .hero-media img{width:100%;height:100%;object-fit:cover;opacity:.82}
 /* Вуаль отдельным слоем: штриховка официального бланка поверх снимка */
 .hero-veil{position:absolute;inset:0;z-index:-2;background:
@@ -434,7 +437,12 @@ html.rv [data-rv].in{opacity:1;transform:none}
     <!-- Фото временное, со стока. Бриф требует реальные деловые снимки Совета —
          заменить файл, разметку трогать не нужно. Пропорции в assets/PHOTO-CREDITS.md -->
     <div class="hero-media">
-      <img src="assets/photo-hero.jpg" alt="" width="1920" height="1080" fetchpriority="high" />
+      <!-- WebP вдвое легче JPEG (88 КБ против 182), а hero — самый тяжёлый элемент страницы.
+           JPEG остаётся фолбэком для браузеров без поддержки WebP. -->
+      <picture>
+        <source srcset="assets/photo-hero.webp" type="image/webp" />
+        <img src="assets/photo-hero.jpg" alt="" width="1920" height="1080" fetchpriority="high" />
+      </picture>
     </div>
     <div class="hero-veil"></div>
     <div class="hero-rule" id="hero-rule"></div>
@@ -540,7 +548,7 @@ html.rv [data-rv].in{opacity:1;transform:none}
       <div class="rc-head">
         <div data-rv>
           <span class="eyebrow on-dark">С ноября 2020 года</span>
-          <h2 class="h2">Женский ресурсный центр «IS QOLDAY»</h2>
+          <h2 class="h2">Женский ресурсный центр <span class="nb">«IS QOLDAY»</span></h2>
           <p class="lead" style="margin-top:1rem">Пять видов профессиональных консультаций для предпринимательниц — в одном месте и по одной заявке.</p>
         </div>
         <figure class="shot" data-rv>
@@ -626,7 +634,7 @@ html.rv [data-rv].in{opacity:1;transform:none}
            датирована 2020–2022 годом. Цифру ставить после сверки с заказчиком. -->
       <ul class="stats" style="margin-top:2.75rem">
         <li data-rv><span class="v">2019</span><span class="l">Год основания Совета</span></li>
-        <li data-rv><span class="v">2020</span><span class="l">Запуск ресурсного центра «IS QOLDAY»</span></li>
+        <li data-rv><span class="v">2020</span><span class="l">Запуск ресурсного центра <span class="nb">«IS QOLDAY»</span></span></li>
         <li data-rv><span class="v" data-count="4" data-pad="2">04</span><span class="l">Ключевых направления работы</span></li>
         <li data-rv><span class="v" data-count="5" data-pad="2">05</span><span class="l">Видов консультаций в ресурсном центре</span></li>
       </ul>
@@ -659,7 +667,7 @@ html.rv [data-rv].in{opacity:1;transform:none}
           <div class="body">Условия членства, размер взносов и участие в отдельных программах публикуются после официального утверждения. Актуальные условия на текущий момент можно уточнить по телефону.</div>
         </details>
         <details>
-          <summary>Чем занимается ресурсный центр «IS QOLDAY»?<svg class="ic" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
+          <summary>Чем занимается ресурсный центр <span class="nb">«IS QOLDAY»</span>?<svg class="ic" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
           <div class="body">Центр работает с ноября 2020 года и даёт пять видов консультаций: юридические, психологические, кадровые, бухгалтерские и маркетинговые.</div>
         </details>
         <details>
