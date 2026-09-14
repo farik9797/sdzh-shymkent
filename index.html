@@ -343,12 +343,6 @@ ul,ol{list-style:none;padding:0}
 html.locked{overflow:hidden}
 
 /* ---------- панель обращения в контактах ---------- */
-.ctacard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);padding:2rem}
-.ctacard h3{font-size:1.375rem;font-weight:800;letter-spacing:-.01em}
-.ctacard p{font-size:.9375rem;line-height:1.7;color:rgba(255,255,255,.72);margin-top:.875rem}
-.ctacard .btn{margin-top:1.75rem}
-.ctacard-note{display:block;margin-top:1rem;font-size:.8125rem;color:rgba(255,255,255,.5)}
-
 /* ---------- контакты ---------- */
 .contact{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden}
 .contact::before{content:"";position:absolute;inset:0;pointer-events:none;
@@ -798,12 +792,34 @@ html.rv [data-rv].in{opacity:1;transform:none}
         </ul>
       </div>
 
-      <div class="ctacard" data-rv>
+      <div class="form" data-rv>
         <h3>Оставить обращение</h3>
-        <p>Опишите задачу в короткой форме — проведём первичную диагностику и вернёмся с ответом
-           в рабочее время: пн–пт 09:00–18:00, сб 09:00–14:00.</p>
-        <button class="btn btn-gold" type="button" data-open-modal>Обратиться в СДЖ</button>
-        <span class="ctacard-note">Онлайн-обращения принимаем круглосуточно</span>
+        <p class="hint">Опишите задачу в короткой форме — проведём первичную диагностику и вернёмся
+           с ответом в рабочее время: пн–пт 09:00–18:00, сб 09:00–14:00.</p>
+        <!-- Вторая форма на странице. Идентификаторы свои, логика общая: см. data-lead в JS. -->
+        <form class="fgrid" id="lead-form-page" data-lead="#lead-success-page" novalidate>
+          <div>
+            <label for="p-name">Имя и фамилия *</label>
+            <input id="p-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required />
+          </div>
+          <div>
+            <label for="p-phone">Телефон *</label>
+            <input id="p-phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___ __ __" required />
+          </div>
+          <div class="full">
+            <label for="p-task">Задача или вопрос</label>
+            <textarea id="p-task" name="task" rows="4" placeholder="Например: хочу запустить производство и подготовиться к финансированию"></textarea>
+          </div>
+          <div class="full">
+            <button class="btn btn-gold" type="submit">Отправить обращение</button>
+          </div>
+          <p class="note full">Нажимая кнопку, вы соглашаетесь на обработку персональных данных. Данные используются только для связи по обращению.</p>
+        </form>
+        <div class="fsuccess" id="lead-success-page" hidden>
+          <span class="fi"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-check"/></svg></span>
+          <h3>Обращение получено</h3>
+          <p>Спасибо — свяжемся с вами в рабочее время: пн–пт 09:00–18:00, сб 09:00–14:00.</p>
+        </div>
       </div>
       </div>
     </div>
@@ -870,7 +886,7 @@ html.rv [data-rv].in{opacity:1;transform:none}
       </button>
     </div>
     <p class="modal-hint">Ответим в рабочее время. Поля со звёздочкой обязательны.</p>
-        <form class="fgrid" id="lead-form" novalidate>
+        <form class="fgrid" id="lead-form" data-lead="#lead-success" novalidate>
           <div>
             <label for="f-name">Имя и фамилия *</label>
             <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required />
@@ -951,26 +967,29 @@ html.rv [data-rv].in{opacity:1;transform:none}
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
 
-  /* ---------- форма обращения ---------- */
-  const form = document.getElementById('lead-form');
-  const success = document.getElementById('lead-success');
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    let ok = true;
-    ['f-name', 'f-phone'].forEach(id => {
-      const el = document.getElementById(id);
-      const bad = !el.value.trim();
-      el.classList.toggle('err', bad);
-      if (bad) ok = false;
+  /* ---------- формы обращения ----------
+     Их две: в модальном окне и в секции контактов. Логика общая и не знает про
+     конкретные идентификаторы — обязательные поля берутся из [required],
+     блок успеха указан в data-lead. Добавить третью форму можно одной разметкой. */
+  document.querySelectorAll('form[data-lead]').forEach(form => {
+    const success = document.querySelector(form.dataset.lead);
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let ok = true;
+      form.querySelectorAll('[required]').forEach(el => {
+        const bad = !el.value.trim();
+        el.classList.toggle('err', bad);
+        if (bad) ok = false;
+      });
+      if (!ok) { form.querySelector('.err')?.focus(); return; }
+      // Точка интеграции: отправка на backend / почту / CRM
+      form.hidden = true;
+      success.hidden = false;
+      success.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     });
-    if (!ok) { form.querySelector('.err')?.focus(); return; }
-    // Точка интеграции: отправка на backend / почту / CRM
-    form.hidden = true;
-    success.hidden = false;
-    success.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    form.querySelectorAll('input, textarea').forEach(i =>
+      i.addEventListener('input', () => i.classList.remove('err')));
   });
-  form.querySelectorAll('input').forEach(i =>
-    i.addEventListener('input', () => i.classList.remove('err')));
 
   /* ---------- входной таймлайн и счётчики на anime.js v4 ----------
      Прокрутка намеренно осталась на CSS: она идёт вне основного потока и не роняет
